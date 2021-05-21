@@ -62,16 +62,13 @@ def SimulateGame(community_cards, players):
     return selected_community, selected_players
 
 def DetermineWinners(community_cards, players):
-    player_evaluation = {}
+    best_hands = {}
     for player in players:
-        player_evaluation[player] = (0, [0,0,0,0,0])
         seven_cards = GetAllCards(community_cards, {player : players[player]})
-        for five_cards in list(combinations(seven_cards, 5)):
-            evaluation = Evaluate(five_cards)
-            if evaluation > player_evaluation[player]:
-                player_evaluation[player] = evaluation
-    best = max(player_evaluation.values())
-    return [player for player in players if player_evaluation[player] == best]
+        evaluations = [Evaluate(hand) for hand in list(combinations(seven_cards, 5))]
+        best_hands[player] = max(evaluations)
+    winning_hand = max(best_hands.values())
+    return [player for player in players if best_hands[player] == winning_hand]
 
 # PROGRAM STARTS HERE
 if (len(sys.argv) != 3):
