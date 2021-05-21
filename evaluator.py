@@ -30,44 +30,27 @@ def SortedRanks(cards):
         return WHEEL
     return ranks
 
-def Straight(cards):
-    ranks = SortedRanks(cards)
-    return ranks == list(range(ranks[0], ranks[0]-5, -1)) or ranks == WHEEL
-
-def Counts(cards):
-    return dict(Counter(SortedRanks(cards))).values()
-
-def Four(cards):
-    return 4 in Counts(cards)
-
-def Three(cards):
-    return 3 in Counts(cards)
-
-def PairsCount(cards):
-    return list(Counts(cards)).count(2)
-
 # Returns (combo_index, tiebreaker). You can compare hands using regular >, ==, < comparators:
 # Evaluate(hand1) > Evaluate(hand2) means that hand1 is stronger than hand2.
 # Evaluate(hand1) == Evaluate(hand2) means that hand1 and hand2 are equally strong.
 # combo_index is an index to the COMBOS array (defined at the top). e.g. 4 means "Straight".
 def Evaluate(cards):
-    tiebreaker = SortedRanks(cards)
-    straight = Straight(cards)
+    ranks = SortedRanks(cards)
+    straight = ranks == list(range(ranks[0], ranks[0]-5, -1)) or ranks == WHEEL
     flush = Flush(cards)
+    counts = dict(Counter(ranks)).values()
+    pairs = list(counts).count(2)
     if straight and flush:
-        return (8, tiebreaker)
-    if Four(cards):
-        return (7, tiebreaker)
-    if Three(cards) and PairsCount(cards) == 1:
-        return (6, tiebreaker)
+        return (8, ranks)
+    if 4 in counts:
+        return (7, ranks)
+    if 3 in counts and pairs == 1:
+        return (6, ranks)
     if flush:
-        return (5, tiebreaker)
+        return (5, ranks)
     if straight:
-        return (4, tiebreaker)
-    if Three(cards):
-        return (3, tiebreaker)
-    if PairsCount(cards) == 2:
-        return (2, tiebreaker)
-    if PairsCount(cards) == 1:
-        return (1, tiebreaker)
-    return (0, tiebreaker)
+        return (4, ranks)
+    if 3 in counts:
+        return (3, ranks)
+    # Returning one of the three lowest COMBO indices based on how many pairs we have
+    return pairs, ranks

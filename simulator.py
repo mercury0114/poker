@@ -2,6 +2,7 @@ import random
 import sys
 from itertools import combinations
 from evaluator import Evaluate, RANKS, SUITS
+from time import time
 
 def ReadCards(file_name):
     cards_file = open(file_name, "r")
@@ -80,6 +81,7 @@ community_cards, players = ReadCards(sys.argv[1])
 CheckCardsAreValid(community_cards, players)
 
 print("Successfully read cards, performing simulations...")
+begin_time = time()
 simulation_count = int(sys.argv[2])
 win_count = {}
 for i in range(simulation_count):
@@ -90,6 +92,7 @@ for i in range(simulation_count):
     for winner in winners:
         win_count.setdefault(winner, 0)
         win_count[winner] += 1
+print("Took {} seconds".format(time() - begin_time))
 
 for player in players:
     win_count.setdefault(player, 0)
