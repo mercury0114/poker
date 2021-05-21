@@ -52,5 +52,5 @@ def Evaluate(cards):
         return (4, ranks)
     if 3 in counts:
         return (3, ranks)
-    # Returning one of the three lowest COMBO indices based on how many pairs we have
+    # Returning "Two pairs", "Pair" or "High card" based on how many pairs we have
     return pairs, ranks
