@@ -1,7 +1,7 @@
 import random
 import sys
-
-from evaluator import RANKS, SUITS
+from itertools import combinations
+from evaluator import Evaluate, RANKS, SUITS
 
 def ReadCards(file_name):
     cards_file = open(file_name, "r")
@@ -61,18 +61,39 @@ def SimulateGame(community_cards, players):
         selected_players[player] = SelectUnknownCards(players[player], used_cards)
     return selected_community, selected_players
 
-
-def DetermineWinner(community_cards, players):
-    return
+def DetermineWinners(community_cards, players):
+    player_evaluation = {}
+    for player in players:
+        player_evaluation[player] = (0, [0,0,0,0,0])
+        seven_cards = GetAllCards(community_cards, {player : players[player]})
+        for five_cards in list(combinations(seven_cards, 5)):
+            evaluation = Evaluate(five_cards)
+            if evaluation > player_evaluation[player]:
+                player_evaluation[player] = evaluation
+    best = max(player_evaluation.values())
+    return [player for player in players if player_evaluation[player] == best]
 
 # PROGRAM STARTS HERE
-if (len(sys.argv) != 2):
+if (len(sys.argv) != 3):
     print("usage:")
-    print("python3 main.py [position_file.txt]")
+    print("python3 main.py [cards_file.txt] [simulation_count]")
     exit()
 
 community_cards, players = ReadCards(sys.argv[1])
 CheckCardsAreValid(community_cards, players)
 
-print("Cards file read succesfully, performing simulations...")
-c, p = SimulateGame(community_cards, players)
+print("Successfully read cards, performing simulations...")
+simulation_count = int(sys.argv[2])
+win_count = {}
+for i in range(simulation_count):
+    if (i % (simulation_count // 100) == 0):
+        print("{}% done".format(i // (simulation_count // 100)))
+    c, p = SimulateGame(community_cards, players)
+    winners = DetermineWinners(c, p)
+    for winner in winners:
+        win_count.setdefault(winner, 0)
+        win_count[winner] += 1
+
+for player in players:
+    win_count.setdefault(player, 0)
+    print("{}: {}%".format(player, (win_count[player] / simulation_count) * 100))
