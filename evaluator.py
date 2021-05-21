@@ -1,7 +1,7 @@
 from collections import Counter
 
 RANKS = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"]
-SUITS = ["H", "D", "C", "S"]
+SUITS = ["h", "d", "c", "s"]
 COMBOS = ["High card", "Pair", "Two pairs", "Three of a kind", "Straight", "Flush", \
           "Full house", "Four of a kind", "Straight flush"]
 

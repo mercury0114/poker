@@ -1,5 +1,5 @@
-community_cards: 7H 6D JS ? ?
+community_cards: 7h 6d Js ? ?
 player_1: ? ?
-player_2: AD AH
-player_3: AC KS
+player_2: Ad Ah
+player_3: Ac Ks
 player_4: ? ?
