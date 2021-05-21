@@ -31,7 +31,3 @@
     print(COMBOS[combo]) # "Two pairs"
     print(tiebreaker) # [9, 9, 1, 1, 12], 9 for jacks, 1 for threes, 12 for the single king.
     ```
-
-   
-   
-   `
