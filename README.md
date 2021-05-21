@@ -17,8 +17,8 @@
    ```
    from evaluator import Evaluate
    hand1 = ["3h", "3c", "Kc", "Jh", "Jd"]
-   hand2 = ["2s", "2d", "Ad", "Qs", "Qd"]
-   hand3 = ["2h", "2s", "Ah", "Qc", "Qh"]
+   hand2 = ["Ts", "Td", "Ad", "Qs", "Qd"]
+   hand3 = ["Th", "Ts", "Ah", "Qc", "Qh"]
    Evaluate(hand1) < Evaluate(hand2) # True
    Evaluate(hand2) == Evaluate(hand3) # True
    Evaluate(hand2) > Evaluate(hand3) # False
@@ -31,7 +31,3 @@
     print(COMBOS[combo]) # "Two pairs"
     print(tiebreaker) # [9, 9, 1, 1, 12], 9 for jacks, 1 for threes, 12 for the single king.
     ```
-
-   
-   
-   `

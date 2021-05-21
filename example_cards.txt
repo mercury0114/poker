@@ -1,4 +1,4 @@
-community_cards 2h 3d 6c Js ?
+community_cards Th 3d 6c Js ?
 player_1 Ac 9s
 player_2 ? ?
 player_3 ? ?
