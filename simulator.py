@@ -3,7 +3,7 @@ import sys
 from itertools import combinations
 from evaluator import Evaluate, RANKS, SUITS
 
-SIMULATION_COUNT = 5000
+SIMULATION_COUNT = 20000
 
 def ReadCards(file_name):
     cards_file = open(file_name, "r")
