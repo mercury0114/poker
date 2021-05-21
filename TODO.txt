@@ -1,0 +1,2 @@
+1) Write unit tests for the evaluation function
+2) Write performance tests for the simulator, will need these as a reference when optimising

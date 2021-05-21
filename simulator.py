@@ -1,9 +1,10 @@
 import random
 import sys
 from itertools import combinations
-from evaluator import Evaluate, RANKS, SUITS
+from evaluator import RANKS, SUITS
+from fast_evaluator import ReadEvaluationTable, EvaluateWithTable
 
-SIMULATION_COUNT = 5000
+SIMULATION_COUNT = 10000
 
 def ReadCards(file_name):
     cards_file = open(file_name, "r")
@@ -63,11 +64,12 @@ def SimulateGame(community_cards, players):
         selected_players[player] = SelectUnknownCards(players[player], used_cards)
     return selected_community, selected_players
 
-def DetermineWinners(community_cards, players):
+def DetermineWinners(community_cards, players, evaluation_table):
     best_hands = {}
     for player in players:
         seven_cards = GetAllCards(community_cards, {player : players[player]})
-        evaluations = [Evaluate(hand) for hand in list(combinations(seven_cards, 5))]
+        evaluations = [EvaluateWithTable(hand, evaluation_table) \
+                       for hand in list(combinations(seven_cards, 5))]
         best_hands[player] = max(evaluations)
     winning_hand = max(best_hands.values())
     return [player for player in players if best_hands[player] == winning_hand]
@@ -82,12 +84,13 @@ community_cards, players = ReadCards(sys.argv[1])
 CheckCardsAreValid(community_cards, players)
 
 print("Successfully read cards, performing simulations...")
+evaluation_table = ReadEvaluationTable()
 win_count = {}
 for i in range(SIMULATION_COUNT):
     if (i % (SIMULATION_COUNT // 20) == 0):
         print("{}% done".format(100 * i / SIMULATION_COUNT))
     c, p = SimulateGame(community_cards, players)
-    winners = DetermineWinners(c, p)
+    winners = DetermineWinners(c, p, evaluation_table)
     for winner in winners:
         win_count.setdefault(winner, 0)
         win_count[winner] += 1
