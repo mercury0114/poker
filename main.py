@@ -1,8 +1,7 @@
 import random
 import sys
 
-RANKS = ["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"]
-SUITS = ["H", "D", "C", "S"]
+from evaluator import RANKS, SUITS
 
 def ReadCards(file_name):
     cards_file = open(file_name, "r")
@@ -62,43 +61,6 @@ def SimulateGame(community_cards, players):
         selected_players[player] = SelectUnknownCards(players[player], used_cards)
     return selected_community, selected_players
 
-def Flush(cards):
-    return len(set([card[1] for card in cards])) == 1
-
-# Returns highest straight card, None if no straight
-def Straight(cards):
-    ranks = [card[0] for card in cards]
-    ranks.sort(key = lambda e : RANKS.index(e))
-    string = "".join(ranks)
-    if string in ["A5432", "65432", "76543", "87654", "98765", "T9876", "JT987", \
-                  "QJT98", "KQJT9", "AKQJT"]:
-        return "5" if string == "A5432" else string[0]
-
-def Fours(cards):
-    ranks = [card[0] for card in cards]
-    counts = {}
-    for rank in ranks:
-        counts.setdefault(rank, 0)
-        counts[rank] += 1
-    return 4 in counts.values()
-
-def Score(cards):
-    ranks = [card[0] for card in cards]
-    score1 = 0
-    counts = {}
-    for rank in ranks:
-        score += len(RANKS) - RANKS.index(rank) - 1
-        score *= 13
-        counts.setdefault(rank, 0)
-        counts[rank] += 1
-    c = [0, 0, 0, 0]
-    for rank in counts:
-        c[4-counts[rank]] += 1
-    score2 = 0
-    for n in c:
-        score2 += n
-        score2 *= 13
-    return score2 * (13 ** 5) + score1
 
 def DetermineWinner(community_cards, players):
     return
