@@ -82,7 +82,7 @@ board_cards, players = ReadCards(sys.argv[1])
 CheckCardsAreValid(board_cards, players)
 
 used_cards = GetUsedCards(board_cards, players)
-all_cards = [p[0]+p[1] for p in product(RANKS, SUITS)]
+all_cards = [rank + suit for rank, suit in product(RANKS, SUITS)]
 free_cards = [c for c in all_cards if c not in used_cards]
 
 print("Successfully read cards, performing simulations...")
