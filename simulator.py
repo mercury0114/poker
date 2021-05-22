@@ -1,6 +1,6 @@
-import random
 import sys
-from itertools import combinations
+from random import shuffle
+from itertools import combinations, product
 from evaluator import RANKS, SUITS
 from fast_evaluator import ReadEvaluationTable, EvaluateWithTable
 
@@ -26,11 +26,11 @@ def ValidCard(card):
         return False
     return True
 
-def GetAllCards(board_cards, players):
-    all_cards = [card for card in board_cards if card != "?"]
+def GetUsedCards(board_cards, players):
+    used_cards = [card for card in board_cards if card != "?"]
     for player in players:
-        all_cards += [card for card in players[player] if card != "?"]
-    return all_cards
+        used_cards += [card for card in players[player] if card != "?"]
+    return used_cards
 
 def CheckCardsAreValid(board_cards, players):
     if (len(board_cards) > 5):
@@ -40,38 +40,32 @@ def CheckCardsAreValid(board_cards, players):
         if len(players[player]) != 2:
             print("Each player needs to have 2 cards, unknown should be marked with ?")
             exit()
-    all_cards = GetAllCards(board_cards, players)
-    if not all(ValidCard(card) for card in all_cards):
+    used_cards = GetUsedCards(board_cards, players)
+    if not all(ValidCard(card) for card in used_cards):
         exit()
-    if len(set(all_cards)) != len(all_cards):
+    if len(set(used_cards)) != len(used_cards):
         print("Duplicate cards are not allowed")
         exit()
     if len(players) < 2 or len(players) > 10:
         print("At least 2 players, at most 10 players")
         exit()
 
-def ChooseNewCard(used_cards):
-    while True:
-        card = random.choice(RANKS) + random.choice(SUITS)
-        if card not in used_cards:
-            used_cards.append(card)
-            return card
+def ChooseUnknownCards(cards, free_cards):
+    return [free_cards.pop() if card == "?" else card for card in cards]
 
-def ChooseUnknownCards(cards, used_cards):
-    return [ChooseNewCard(used_cards) if card == "?" else card for card in cards]
-
-def SimulateGame(board_cards, players):
-    used_cards = GetAllCards(board_cards, players)
-    chosen_board = ChooseUnknownCards(board_cards, used_cards)
+# WARNING: function modifies free_cards list
+def SimulateGame(board_cards, players, free_cards):
+    shuffle(free_cards)
+    chosen_board = ChooseUnknownCards(board_cards, free_cards)
     chosen_players = {}
     for player in players:
-        chosen_players[player] = ChooseUnknownCards(players[player], used_cards)
+        chosen_players[player] = ChooseUnknownCards(players[player], free_cards)
     return chosen_board, chosen_players
 
 def DetermineWinners(board_cards, players, evaluation_table):
     best_hands = {}
     for player in players:
-        seven_cards = GetAllCards(board_cards, {player : players[player]})
+        seven_cards = GetUsedCards(board_cards, {player : players[player]})
         evaluations = [EvaluateWithTable(hand, evaluation_table) \
                        for hand in combinations(seven_cards, 5)]
         best_hands[player] = max(evaluations)
@@ -87,13 +81,17 @@ if (len(sys.argv) != 2):
 board_cards, players = ReadCards(sys.argv[1])
 CheckCardsAreValid(board_cards, players)
 
+used_cards = GetUsedCards(board_cards, players)
+all_cards = [p[0]+p[1] for p in product(RANKS, SUITS)]
+free_cards = [c for c in all_cards if c not in used_cards]
+
 print("Successfully read cards, performing simulations...")
 evaluation_table = ReadEvaluationTable()
 win_count = {}
 for i in range(SIMULATION_COUNT):
     if (i % (SIMULATION_COUNT // 20) == 0):
         print("{}% done".format(100 * i // SIMULATION_COUNT))
-    chosen_board, chosen_players = SimulateGame(board_cards, players)
+    chosen_board, chosen_players = SimulateGame(board_cards, players, free_cards.copy())
     winners = DetermineWinners(chosen_board, chosen_players, evaluation_table)
     for winner in winners:
         win_count.setdefault(winner, 0)
