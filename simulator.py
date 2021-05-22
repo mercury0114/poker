@@ -20,8 +20,7 @@ def ReadCards(file_name):
     return community_cards, players
 
 def ValidCard(card):
-    rank, suit = card[:-1], card[-1]
-    if rank not in RANKS or suit not in SUITS:
+    if card[0] not in RANKS or card[1] not in SUITS:
         print("{} is invalid".format(card))
         return False
     return True
