@@ -53,8 +53,7 @@ def SelectNewCard(used_cards):
             return card
 
 def SelectUnknownCards(cards, used_cards):
-    return [SelectNewCard(used_cards) if card == "?" else card \
-            for card in cards]
+    return [SelectNewCard(used_cards) if card == "?" else card for card in cards]
 
 def SimulateGame(community_cards, players):
     used_cards = GetAllCards(community_cards, players)
