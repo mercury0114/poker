@@ -10,13 +10,14 @@ def Replace10ByT(cards):
     return [card.replace("10", "T") for card in cards]
 
 def ReadCards(file_name):
-    cards_file = open(file_name, "r")
+    cards_file = open(file_name)
     board_cards = Replace10ByT(cards_file.readline().split()[1:])
     # Filling remaining board cards with question marks
     board_cards += ["?"] * (5 - len(board_cards))
     players = {}
     for line in cards_file:
         players[line.split()[0]] = Replace10ByT(line.split()[1:])
+    cards_file.close()
     return board_cards, players
 
 def ValidCard(card):
