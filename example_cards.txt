@@ -1,4 +1,4 @@
-community_cards Th 3d 6c Js ?
+board_cards Th 3d 6c Js ?
 John Ac 9s
 Harry ? ?
 Olivia ? ?
