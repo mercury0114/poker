@@ -91,7 +91,7 @@ evaluation_table = ReadEvaluationTable()
 win_count = {}
 for i in range(SIMULATION_COUNT):
     if (i % (SIMULATION_COUNT // 20) == 0):
-        print("{}% done".format(100 * i / SIMULATION_COUNT))
+        print("{}% done".format(100 * i // SIMULATION_COUNT))
     chosen_board, chosen_players = SimulateGame(board_cards, players)
     winners = DetermineWinners(chosen_board, chosen_players, evaluation_table)
     for winner in winners:
