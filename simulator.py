@@ -6,14 +6,17 @@ from fast_evaluator import ReadEvaluationTable, EvaluateWithTable
 
 SIMULATION_COUNT = 10000
 
+def Replace10ByT(cards):
+    return [card.replace("10", "T") for card in cards]
+
 def ReadCards(file_name):
     cards_file = open(file_name, "r")
-    community_cards = cards_file.readline().split()[1:]
+    community_cards = Replace10ByT(cards_file.readline().split()[1:])
     # Filling remaining community cards with question marks
     community_cards += ["?"] * (5 - len(community_cards))
     players = {}
     for line in cards_file:
-        players[line.split()[0]] = line.split()[1:]
+        players[line.split()[0]] = Replace10ByT(line.split()[1:])
     return community_cards, players
 
 def ValidCard(card):
