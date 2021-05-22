@@ -68,7 +68,7 @@ def DetermineWinners(community_cards, players, evaluation_table):
     for player in players:
         seven_cards = GetAllCards(community_cards, {player : players[player]})
         evaluations = [EvaluateWithTable(hand, evaluation_table) \
-                       for hand in list(combinations(seven_cards, 5))]
+                       for hand in combinations(seven_cards, 5)]
         best_hands[player] = max(evaluations)
     winning_hand = max(best_hands.values())
     return [player for player in players if best_hands[player] == winning_hand]
