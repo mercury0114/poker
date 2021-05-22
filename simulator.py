@@ -9,6 +9,8 @@ SIMULATION_COUNT = 10000
 def ReadCards(file_name):
     cards_file = open(file_name, "r")
     community_cards = cards_file.readline().split()[1:]
+    # Filling remaining community cards with question marks
+    community_cards += ["?"] * (5 - len(community_cards))
     players = {}
     for line in cards_file:
         players[line.split()[0]] = line.split()[1:]
@@ -28,8 +30,8 @@ def GetAllCards(community_cards, players):
     return all_cards
 
 def CheckCardsAreValid(community_cards, players):
-    if (len(community_cards) != 5):
-        print("Community cards must be 5, unknown should be marked with ?")
+    if (len(community_cards) > 5):
+        print("Too many community cards")
         exit()
     for player in players:
         if len(players[player]) != 2:
