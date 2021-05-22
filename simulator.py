@@ -49,23 +49,23 @@ def CheckCardsAreValid(board_cards, players):
         print("At least 2 players, at most 10 players")
         exit()
 
-def SelectNewCard(used_cards):
+def ChooseNewCard(used_cards):
     while True:
         card = random.choice(RANKS) + random.choice(SUITS)
         if card not in used_cards:
             used_cards.append(card)
             return card
 
-def SelectUnknownCards(cards, used_cards):
-    return [SelectNewCard(used_cards) if card == "?" else card for card in cards]
+def ChooseUnknownCards(cards, used_cards):
+    return [ChooseNewCard(used_cards) if card == "?" else card for card in cards]
 
 def SimulateGame(board_cards, players):
     used_cards = GetAllCards(board_cards, players)
-    selected_board = SelectUnknownCards(board_cards, used_cards)
-    selected_players = {}
+    chosen_board = ChooseUnknownCards(board_cards, used_cards)
+    chosen_players = {}
     for player in players:
-        selected_players[player] = SelectUnknownCards(players[player], used_cards)
-    return selected_board, selected_players
+        chosen_players[player] = ChooseUnknownCards(players[player], used_cards)
+    return chosen_board, chosen_players
 
 def DetermineWinners(board_cards, players, evaluation_table):
     best_hands = {}
@@ -92,8 +92,8 @@ win_count = {}
 for i in range(SIMULATION_COUNT):
     if (i % (SIMULATION_COUNT // 20) == 0):
         print("{}% done".format(100 * i / SIMULATION_COUNT))
-    selected_board, selected_players = SimulateGame(board_cards, players)
-    winners = DetermineWinners(selected_board, selected_players, evaluation_table)
+    chosen_board, chosen_players = SimulateGame(board_cards, players)
+    winners = DetermineWinners(chosen_board, chosen_players, evaluation_table)
     for winner in winners:
         win_count.setdefault(winner, 0)
         win_count[winner] += 1
