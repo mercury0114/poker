@@ -1,13 +1,3 @@
-# Utility script to evaluate hands:
-#     hand1 = ["3h", "3c", "Kc", "Jh", "Jd"]
-#     hand2 = ["2s", "2d", "Ad", "Qs", "Qd"]
-#     hand3 = ["2h", "2s", "Ah", "Qc", "Qh"]
-#     Evaluate(hand1) < Evaluate(hand2) # returns True
-#     Evaluate(hand2) == Evaluate(hand3) # returns True
-#     Evaluate(hand2) > Evaluate(hand3) # returns False
-# If you want to know more info about the hand:
-#     combo, tiebreaker = Evaluate(hand1)
-#     print(COMBOS[combo]) # prints "Two pairs"
 from collections import Counter
 
 RANKS = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"]
