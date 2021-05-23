@@ -17,7 +17,6 @@ def ReadCards(file_name):
     players = {}
     for line in cards_file:
         players[line.split()[0]] = Replace10ByT(line.split()[1:])
-    cards_file.close()
     return board_cards, players
 
 def ValidCard(card):

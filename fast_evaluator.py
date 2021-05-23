@@ -3,12 +3,10 @@ from evaluator import RANKS, SUITS, SortedRanks, Flush
 FLUSH_SCORE = 5863
 
 def ReadEvaluationTable():
-    table_file = open("evaluation_table.txt")
     table = {}
-    for line in table_file:
+    for line in open("evaluation_table.txt"):
         score, ranks = line.split()
         table[ranks] = int(score)
-    table_file.close()
     return table
 
 def EvaluateWithTable(cards, table):
