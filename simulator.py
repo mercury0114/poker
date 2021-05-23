@@ -10,13 +10,11 @@ def Replace10ByT(cards):
     return [card.replace("10", "T") for card in cards]
 
 def ReadCards(file_name):
-    cards_file = open(file_name)
-    board_cards = Replace10ByT(cards_file.readline().split()[1:])
+    f = open(file_name)
+    board_cards = Replace10ByT(f.readline().split()[1:])
     # Filling remaining board cards with question marks
     board_cards += ["?"] * (5 - len(board_cards))
-    players = {}
-    for line in cards_file:
-        players[line.split()[0]] = Replace10ByT(line.split()[1:])
+    players = {line.split()[0] : Replace10ByT(line.split()[1:]) for line in f}
     return board_cards, players
 
 def ValidCard(card):
@@ -56,9 +54,7 @@ def ChooseUnknownCards(cards, free_cards):
 def SimulateGame(board_cards, players, free_cards):
     shuffle(free_cards)
     chosen_board = ChooseUnknownCards(board_cards, free_cards)
-    chosen_players = {}
-    for player in players:
-        chosen_players[player] = ChooseUnknownCards(players[player], free_cards)
+    chosen_players = {p : ChooseUnknownCards(players[p], free_cards) for p in players}
     return chosen_board, chosen_players
 
 def DetermineWinners(board_cards, players, evaluation_table):
