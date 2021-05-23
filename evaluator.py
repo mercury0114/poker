@@ -26,9 +26,7 @@ def SortedRanks(cards):
     counter = Counter(ranks)
     ranks.sort(key=lambda rank: (counter[rank], rank), reverse=True)
     # Care must be taken for the lowest straight, "five" is the top card, not "ace"
-    if ranks == [12, 3, 2, 1, 0]:
-        return WHEEL
-    return ranks
+    return WHEEL if ranks == [12, 3, 2, 1, 0] else ranks
 
 # Returns (combo_index, tiebreaker). You can compare hands using regular >, ==, < comparators:
 # Evaluate(hand1) > Evaluate(hand2) means that hand1 is stronger than hand2.
