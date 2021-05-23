@@ -33,10 +33,9 @@ def CheckCardsAreValid(board_cards, players):
     if (len(board_cards) > 5):
         print("Too many board cards")
         exit()
-    for player in players:
-        if len(players[player]) != 2:
-            print("Each player needs to have 2 cards, unknown should be marked with ?")
-            exit()
+    if not all(len(players[player]) == 2 for player in players):
+        print("Each player needs to have 2 cards, unknown should be marked with ?")
+        exit()
     used_cards = GetUsedCards(board_cards, players)
     if not all(ValidCard(card) for card in used_cards):
         exit()
