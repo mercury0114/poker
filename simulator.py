@@ -86,8 +86,7 @@ for i in range(SIMULATION_COUNT):
     if (i % (SIMULATION_COUNT // 20) == 0):
         print("{}% done".format(100 * i // SIMULATION_COUNT))
     chosen_board, chosen_players = SimulateGame(board_cards, players, free_cards.copy())
-    winners = DetermineWinners(chosen_board, chosen_players, evaluation_table)
-    for winner in winners:
+    for winner in DetermineWinners(chosen_board, chosen_players, evaluation_table):
         win_count[winner] += 1
 
 print("All simulations completed, final results:")
