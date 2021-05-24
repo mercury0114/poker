@@ -81,17 +81,15 @@ free_cards = [c for c in all_cards if c not in used_cards]
 
 print("Successfully read cards, performing simulations...")
 evaluation_table = ReadEvaluationTable()
-win_count = {}
+win_count = {player : 0 for player in players}
 for i in range(SIMULATION_COUNT):
     if (i % (SIMULATION_COUNT // 20) == 0):
         print("{}% done".format(100 * i // SIMULATION_COUNT))
     chosen_board, chosen_players = SimulateGame(board_cards, players, free_cards.copy())
     winners = DetermineWinners(chosen_board, chosen_players, evaluation_table)
     for winner in winners:
-        win_count.setdefault(winner, 0)
         win_count[winner] += 1
 
 print("All simulations completed, final results:")
 for player in players:
-    win_count.setdefault(player, 0)
     print("{}: {}%".format(player, (win_count[player] / SIMULATION_COUNT) * 100))
