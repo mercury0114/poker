@@ -69,7 +69,7 @@ def DetermineWinners(board_cards, players, evaluation_table):
 # PROGRAM STARTS HERE
 if (len(sys.argv) != 2):
     print("usage:")
-    print("python3 main.py [cards_file.txt]")
+    print("python3 simulator.py [cards_file.txt]")
     exit()
 
 board_cards, players = ReadCards(sys.argv[1])
