@@ -1,0 +1,4 @@
+board_cards 6c 7c 8s Jh ?
+Adam Ac Kc
+Opponent 3h 3c
+Other 2h 2d

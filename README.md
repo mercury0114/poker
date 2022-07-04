@@ -1,10 +1,10 @@
 # Utility Tools for Texas Hold'em Poker
 
-1) **Simulator**: 
+1) **Analyzer**: 
    
    A program that reads community and player cards from the file and estimates the winning probability for each player.
    
-   Example usage: `python3 simulator.py example_cards.txt`
+   Example usage: `python3 analyzer.py example_cards.txt`
    
    Customise `example_cards.txt` file or pass your own file as a command-line argument.
    
@@ -31,3 +31,9 @@
     print(COMBOS[combo]) # "Two pairs"
     print(tiebreaker) # [9, 9, 1, 1, 12], 9 for jacks, 1 for threes, 12 for the single king.
     ```
+
+3) **Trainer**:
+
+    A program that asks you to calculate odds of loosing for various situations.
+
+    Example usage: `python3 trainer.py`

@@ -1,0 +1,4 @@
+board_cards 6c 7c 10s Kh ?
+Adam 2c 3c
+Opponent 5h 5c
+Other 4h 4c
