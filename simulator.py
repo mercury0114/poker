@@ -43,8 +43,9 @@ def perform_simulations(board_cards, players, evaluation_table):
         chosen_board, chosen_players = simulate_game(board_cards,
                                                      players,
                                                      free_cards.copy())
-        for winner in determine_winners(chosen_board,
-                                        chosen_players,
-                                        evaluation_table):
-            win_count[winner] += 1
+        winners = determine_winners(chosen_board,
+                                    chosen_players,
+                                    evaluation_table)
+        if len(winners) == 1:
+            win_count[winners[0]] += 1
     return win_count
