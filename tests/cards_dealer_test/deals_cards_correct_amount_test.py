@@ -4,8 +4,9 @@ path.append("../../")
 from cards_dealer import deal_cards
 from cards_reader import check_cards_are_valid
 
-for _ in range(100):
-    board_cards, players = deal_cards(2)
+for number in range(2, 8):
+    board_cards, players = deal_cards(number)
     check_cards_are_valid(board_cards, players)
+    assert len(players) == number
 
-print("deals_valid_cards.py passed")
+print("deals_cards_correct_amount_test.py passed")

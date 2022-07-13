@@ -6,7 +6,7 @@ from simulator import perform_simulations
 
 evaluation_table = read_evaluation_table()
 while True:
-    board_cards, players = deal_flop_and_turn()
+    board_cards, players = deal_flop_and_turn(2)
     print(board_cards)
     for player in players:
         print(player, players[player])
