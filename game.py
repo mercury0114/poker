@@ -62,7 +62,6 @@ def play_hand_return_remaining(players):
     board_cards, players_cards = deal_cards(len(players))
     for i, player in enumerate(players):
         player.show_cards(players_cards[f"player{i}"])
-        player.update_history(history)
     while True:
         players[next_player].update_history(history)
         bet = players[next_player].bet()
