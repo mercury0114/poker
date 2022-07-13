@@ -9,6 +9,7 @@ from players import Player
 
 class CallLess10Player(Player):
     def __init__(self, position):
+        super().__init__()
         self.position = position
 
     def bet(self):

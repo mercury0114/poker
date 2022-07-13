@@ -4,17 +4,17 @@ from game import min_amount_to_call
 class Player:
     def __init__(self):
         self.history = None
-        self.cards = None
+        self.cards = {}
 
     def update_history(self, history):
         self.history = history
 
-    def show_cards(self, cards):
-        self.cards = cards
+    def show_cards(self, name, cards):
+        self.cards[name] = cards
 
 
 class HumanPlayer(Player):
-    def show_cards(self, cards):
+    def show_cards(self, name, cards):
         print(cards)
 
     def bet(self):

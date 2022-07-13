@@ -61,7 +61,8 @@ def play_hand_return_remaining(players):
     round_number = 0
     board_cards, players_cards = deal_cards(len(players))
     for i, player in enumerate(players):
-        player.show_cards(players_cards[f"player{i}"])
+        name = f"player{i}"
+        player.show_cards(name, players_cards[name])
     while True:
         players[next_player].update_history(history)
         bet = players[next_player].bet()
@@ -72,9 +73,12 @@ def play_hand_return_remaining(players):
                 return next_players[1]
             round_number += 1
             if round_number == len(REVEAL_CARDS):
-                for player_index in next_players[1]:
-                    name = f"player{player_index}"
-                    print(f"{name}: {players_cards[name]}")
+                for player in players:
+                    for index in next_players[1]:
+                        name = f"player{index}"
+                        player.show_cards(name, players_cards[name])
                 return next_players[1]
-            print(board_cards[:REVEAL_CARDS[round_number]])
+            for player in players:
+                player.show_cards("board:",
+                                  board_cards[:REVEAL_CARDS[round_number]])
         next_player = next_players[1][0]
