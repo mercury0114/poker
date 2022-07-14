@@ -2,7 +2,7 @@ from itertools import combinations
 from random import shuffle
 
 from cards_reader import check_cards_are_valid
-from fast_evaluator import evaluate_with_table
+from evaluator import evaluate_with_table
 from utils import get_free_cards
 from utils import get_used_cards
 

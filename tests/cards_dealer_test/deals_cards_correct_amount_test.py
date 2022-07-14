@@ -9,4 +9,4 @@ for number in range(2, 8):
     check_cards_are_valid(board_cards, players)
     assert len(players) == number
 
-print("deals_cards_correct_amount_test.py passed")
+print("Passed")

@@ -1,29 +1,5 @@
-1) Write game player:
-
-class Player:
-    # self contains your chips and cards
-
-    # bet 0 chips means check or fold
-    def bet(self, history, board_cards, all_players):
-        # if user, make_move will call input()
-        # if computer, make_move will make a decision
-
-def play_hand(players):
-    deal_cards(players)
-    index = 0
-    pot = 0
-    history = [] # Figure out later how to incorporate history
-    while True:
-        bet = players[index].bet(history, board_cards, players)
-        pot += bet
-        index = next_index(index, players)
-        if (index == -1):
-            if (deal_new_card(board_cards)):
-                reset_players(players)
-                index =  0
-            else:
-                compute_winner(players, board_cards)
-                break
-
-2) Write unit tests for the evaluation function
-3) Write performance tests for the simulator, will need these as a reference when optimising
+-Fix heads-up small blind first problem
+-Make play.py have a nice UI
+-Fix odds_calculator function
+-Write unit tests for the evaluation function
+-Write performance tests for the simulator, will need these as a reference when optimising

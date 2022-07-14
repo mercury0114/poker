@@ -1,9 +1,9 @@
 from sys import path
-path.append("../../")
+path.append("../../../")
 
 from game import min_amount_to_call
 from game import play_hand_return_remaining
-from players import CheckFoldPlayer
+from players import FoldPlayer
 from players import Player
 
 
@@ -23,7 +23,7 @@ class Bet10Player(Player):
         return 10
 
 
-players = [CallLess10Player(0), CheckFoldPlayer(), Bet10Player()]
+players = [CallLess10Player(0), FoldPlayer(), Bet10Player()]
 assert play_hand_return_remaining(players) == [2]
 
-print("call_once_does_not_win_test.py passed")
+print("Passed")

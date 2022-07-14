@@ -1,33 +1,42 @@
 from cards_dealer import deal_cards
 
+FULL_STACK = 200
 PLAYING_WITH_BLINDS = True
-GAME_WINNER = "Game winner"
+GAME_ENDED = "Game ended"
 NEXT_ROUND = "Next round"
 SAME_ROUND = "Same round"
 REVEAL_CARDS = [0, 3, 4, 5]
 
 
-def first_not_folded(index, folded):
-    while folded[index % len(folded)]:
+def find_playing(index, playing):
+    while not playing[index % len(playing)]:
         index += 1
-    return index % len(folded)
+    return index % len(playing)
 
 
-def remaining_players(number_of_players, history):
+def cheating(bet, player, history):
+    if 0 < bet < min_amount_to_call(player, history):
+        return True
+    invested = sum([money for index, money in history if index == player])
+    return invested + bet > FULL_STACK
+
+
+# returns (round_state, list of remaining players)
+def game_state(number_of_players, history):
     active_count = number_of_players
-    folded = [False for _ in range(number_of_players)]
+    playing = [True] * number_of_players
     action_left = number_of_players
     max_invested = 0
-    invested = [0 for _ in range(number_of_players)]
+    invested = [0] * number_of_players
     for index, bet in history:
         if action_left == 0:
             action_left = active_count
         # Fold
         if invested[index] + bet < max_invested:
-            folded[index] = True
+            playing[index] = False
             active_count -= 1
             if active_count == 1:
-                return (GAME_WINNER, [first_not_folded(0, folded)])
+                return (GAME_ENDED, [find_playing(0, playing)])
             action_left -= 1
         # Call
         if invested[index] + bet == max_invested:
@@ -40,11 +49,14 @@ def remaining_players(number_of_players, history):
         invested[index] += bet
         max_invested = max(max_invested, invested[index])
     next_index = history[-1][0] + 1 if action_left else 0
-    playing = [index for index, val in enumerate(folded) if not val]
+    remaining = [index for index, val in enumerate(playing) if val]
     if action_left:
-        first = playing.index(first_not_folded(next_index, folded))
-        playing = playing[first:] + playing[:first]
-    return (SAME_ROUND, playing) if action_left else (NEXT_ROUND, playing)
+        first = remaining.index(find_playing(next_index, playing))
+        remaining = remaining[first:] + remaining[:first]
+    else:
+        if number_of_players == 2 and len(remaining) == 2:
+            remaining = [1, 0]
+    return (SAME_ROUND, remaining) if action_left else (NEXT_ROUND, remaining)
 
 
 def min_amount_to_call(player_index, history):
@@ -55,6 +67,12 @@ def min_amount_to_call(player_index, history):
     return max(investments.values()) - investments[player_index]
 
 
+def update_players(players, history, board_cards, round_number):
+    for player in players:
+        player.show_cards("board", board_cards[:REVEAL_CARDS[round_number]])
+        player.update_history(history)
+
+
 def play_hand_return_remaining(players):
     history = [(0, 1), (1, 2)]
     next_player = 2 % len(players)
@@ -63,22 +81,22 @@ def play_hand_return_remaining(players):
     for i, player in enumerate(players):
         name = f"player{i}"
         player.show_cards(name, players_cards[name])
-    while True:
-        players[next_player].update_history(history)
+        player.set_position(i)
+
+    while round_number < len(REVEAL_CARDS):
+        update_players(players, history, board_cards, round_number)
         bet = players[next_player].bet()
+        if cheating(bet, next_player, history):
+            bet = 0
         history.append((next_player, bet))
-        next_players = remaining_players(len(players), history)
-        if next_players[0] != SAME_ROUND:
-            if next_players[0] == GAME_WINNER:
-                return next_players[1]
-            round_number += 1
-            if round_number == len(REVEAL_CARDS):
-                for player in players:
-                    for index in next_players[1]:
-                        name = f"player{index}"
-                        player.show_cards(name, players_cards[name])
-                return next_players[1]
-            for player in players:
-                player.show_cards("board:",
-                                  board_cards[:REVEAL_CARDS[round_number]])
-        next_player = next_players[1][0]
+        state = game_state(len(players), history)
+        if state[0] == GAME_ENDED:
+            return state[1]
+        round_number += (state[0] == NEXT_ROUND)
+        next_player = state[1][0]
+
+    for player in players:
+        for index in state[1]:
+            name = f"player{index}"
+            player.show_cards(name, players_cards[name])
+    return sorted(state[1])

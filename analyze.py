@@ -1,7 +1,7 @@
 from sys import argv
 
 from cards_reader import read_cards
-from fast_evaluator import read_evaluation_table
+from evaluator import read_evaluation_table
 from simulator import perform_simulations
 from simulator import SIMULATION_COUNT
 

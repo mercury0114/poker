@@ -10,4 +10,4 @@ for _ in range(100):
     assert len(board_cards) == 5
     assert board_cards.count("?") == 1
 
-print("deals_flop_and_turn_test.py passed")
+print("Passed")
