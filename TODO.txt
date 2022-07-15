@@ -1,5 +1,6 @@
--Fix heads-up small blind first problem
--Make play.py have a nice UI
+-Make play.py determine the winner after showdown
+-Handle all in separately when displaying the game in play.py
+-Change display status from PLAYING/FOLD to CHECK/RAISE/BET/FOLD
 -Fix odds_calculator function
 -Write unit tests for the evaluation function
 -Write performance tests for the simulator, will need these as a reference when optimising

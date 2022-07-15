@@ -6,6 +6,7 @@ class Player:
     def __init__(self):
         self.history = None
         self.position = None
+        self.players_count = None
         self.cards = {}
 
     def update_history(self, history):
@@ -16,6 +17,9 @@ class Player:
 
     def set_position(self, position):
         self.position = position
+
+    def set_players_count(self, count):
+        self.players_count = count
 
 
 class CallPlayer(Player):

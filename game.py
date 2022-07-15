@@ -5,7 +5,41 @@ PLAYING_WITH_BLINDS = True
 GAME_ENDED = "Game ended"
 NEXT_ROUND = "Next round"
 SAME_ROUND = "Same round"
+BOARD = "Board"
+PLAYING = "PLAYING"
+FOLDED = "FOLDED"
 REVEAL_CARDS = [0, 3, 4, 5]
+
+
+def players_status(number, history):
+    _, remaining = game_state(number, history)
+    return [PLAYING if p in remaining else FOLDED for p in range(number)]
+
+
+def last_investment(number, history):
+    invested = [0] * number
+    max_invested = 0
+    active_count = number
+    action_left = number
+    invested_up_to_this_round = 0
+    for index, bet in history:
+        # Fold
+        if invested[index] + bet < max_invested:
+            active_count -= 1
+            action_left -= 1
+        # Call
+        if invested[index] + bet == max_invested:
+            action_left -= 1
+        # Raise
+        if invested[index] + bet > max_invested:
+            action_left = active_count - 1
+            if PLAYING_WITH_BLINDS and index == 1 and invested[index] == 0:
+                action_left = active_count
+        invested[index] += bet
+        max_invested = max(max_invested, invested[index])
+        if action_left == 0:
+            invested_up_to_this_round = max_invested
+    return [max(0, money - invested_up_to_this_round) for money in invested]
 
 
 def find_playing(index, playing):
@@ -67,9 +101,9 @@ def min_amount_to_call(player_index, history):
     return max(investments.values()) - investments[player_index]
 
 
-def update_players(players, history, board_cards, round_number):
+def update_players(players, history, board, round_number):
     for player in players:
-        player.show_cards("board", board_cards[:REVEAL_CARDS[round_number]])
+        player.show_cards(BOARD, board[:REVEAL_CARDS[round_number]])
         player.update_history(history)
 
 
@@ -77,14 +111,15 @@ def play_hand_return_remaining(players):
     history = [(0, 1), (1, 2)]
     next_player = 2 % len(players)
     round_number = 0
-    board_cards, players_cards = deal_cards(len(players))
+    board, players_cards = deal_cards(len(players))
     for i, player in enumerate(players):
         name = f"player{i}"
         player.show_cards(name, players_cards[name])
         player.set_position(i)
+        player.set_players_count(len(players))
 
     while round_number < len(REVEAL_CARDS):
-        update_players(players, history, board_cards, round_number)
+        update_players(players, history, board, round_number)
         bet = players[next_player].bet()
         if cheating(bet, next_player, history):
             bet = 0
