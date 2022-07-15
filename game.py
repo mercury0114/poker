@@ -42,19 +42,6 @@ def last_investment(number, history):
     return [max(0, money - invested_up_to_this_round) for money in invested]
 
 
-def find_playing(index, playing):
-    while not playing[index % len(playing)]:
-        index += 1
-    return index % len(playing)
-
-
-def cheating(bet, player, history):
-    if 0 < bet < min_amount_to_call(player, history):
-        return True
-    invested = sum([money for index, money in history if index == player])
-    return invested + bet > FULL_STACK
-
-
 # returns (round_state, list of remaining players)
 def game_state(number_of_players, history):
     active_count = number_of_players
@@ -99,6 +86,19 @@ def min_amount_to_call(player_index, history):
         investments.setdefault(player, 0)
         investments[player] += bet
     return max(investments.values()) - investments[player_index]
+
+
+def find_playing(index, playing):
+    while not playing[index % len(playing)]:
+        index += 1
+    return index % len(playing)
+
+
+def cheating(bet, player, history):
+    if 0 < bet < min_amount_to_call(player, history):
+        return True
+    invested = sum([money for index, money in history if index == player])
+    return invested + bet > FULL_STACK
 
 
 def update_players(players, history, board, round_number):
