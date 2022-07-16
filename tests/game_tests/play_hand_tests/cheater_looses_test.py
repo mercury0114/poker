@@ -2,19 +2,16 @@ from sys import path
 path.append("../../../")
 
 from game import FULL_STACK
-from game import min_amount_to_call
 from game import play_hand_return_remaining
 from players import CallPlayer
 from players import FoldPlayer
 from players import Player
+from round_state import call_amount
 
 
 class CallOneLessCheater(Player):
     def bet(self):
-        call_amount = min_amount_to_call(self.position, self.history)
-        if call_amount > 0:
-            call_amount -= 1
-        return call_amount
+        return max(0, call_amount(self.state, self.position) - 1)
 
 
 class BetMoreThanStackCheater(Player):

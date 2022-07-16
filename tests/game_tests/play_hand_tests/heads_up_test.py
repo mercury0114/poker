@@ -1,7 +1,7 @@
 from sys import path
 path.append("../../../")
 
-from game import min_amount_to_call
+from round_state import call_amount
 from game import play_hand_return_remaining
 from players import FoldPlayer
 from players import Player
@@ -9,14 +9,13 @@ from players import Player
 
 class BetLess10Player(Player):
     def bet(self):
-        call_amount = min_amount_to_call(self.position, self.history)
-        return 9 if call_amount < 10 else 0
+        return 9 if call_amount(self.state, self.position) < 10 else 0
 
 
 class BetIfNotCallPlayer(Player):
     def bet(self):
-        call_amount = min_amount_to_call(self.position, self.history)
-        return call_amount if call_amount else 20
+        amount = call_amount(self.state, self.position)
+        return amount if amount else 20
 
 
 players = [BetLess10Player(), BetIfNotCallPlayer()]

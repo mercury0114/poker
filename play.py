@@ -2,16 +2,14 @@ from time import sleep
 
 from cards_dealer import display_cards
 from game import play_hand_return_remaining
-from game import players_status
-from game import last_investment
 from players import AllInPlayer
 from players import CallPlayer
 from players import Player
 
 
 def display_row(row_name, row):
-    formatted_row = [entry.ljust(8) for entry in row]
-    print(f"{row_name}:".ljust(14) + ' '.join(formatted_row))
+    formatted_row = [entry.ljust(10) for entry in row]
+    print(f"{row_name}:".ljust(10) + ' '.join(formatted_row))
 
 
 class Human(Player):
@@ -28,11 +26,11 @@ class Human(Player):
         display_row("Name", names)
 
     def display_investments(self):
-        investments = last_investment(self.players_count, self.history)
+        investments = [s[1] for s in self.state]
         display_row("Invested", [str(money) for money in investments])
 
     def display_statuses(self):
-        statuses = players_status(self.players_count, self.history)
+        statuses = [s[0] for s in self.state]
         display_row("Status", statuses)
 
     def display_new_action(self):
@@ -42,8 +40,12 @@ class Human(Player):
         print("")
         sleep(3)
 
-    def update_history(self, history):
-        super().update_history(history)
+    def set_position(self, position):
+        super().set_position(position)
+        print(f"You are player{position}\n")
+
+    def update_state(self, state):
+        super().update_state(state)
         self.display_new_action()
 
 

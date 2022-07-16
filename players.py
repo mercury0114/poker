@@ -1,16 +1,15 @@
 from game import FULL_STACK
-from game import min_amount_to_call
 
 
 class Player:
     def __init__(self):
-        self.history = None
+        self.state = None
         self.position = None
         self.players_count = None
         self.cards = {}
 
-    def update_history(self, history):
-        self.history = history
+    def update_state(self, state):
+        self.state = state
 
     def show_cards(self, name, cards):
         self.cards[name] = cards
@@ -24,8 +23,7 @@ class Player:
 
 class CallPlayer(Player):
     def bet(self):
-        call_amount = min_amount_to_call(self.position, self.history)
-        return call_amount
+        return max(s[1] for s in self.state) - self.state[self.position][1]
 
 
 class FoldPlayer(Player):
@@ -36,5 +34,4 @@ class FoldPlayer(Player):
 
 class AllInPlayer(Player):
     def bet(self):
-        invested = sum([bet for p, bet in self.history if p == self.position])
-        return FULL_STACK - invested
+        return FULL_STACK - self.state[self.position][1]
