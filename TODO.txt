@@ -1,4 +1,4 @@
--Make play.py determine the winner after showdown
+-play.py should play many hands and display stats
 -Handle all in separately when displaying the game in play.py
 -Refactor tests to use UnitTest framework
 -Fix odds_calculator function
