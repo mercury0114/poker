@@ -1,6 +1,7 @@
 from sys import path
 path.append("../../../")
 
+from cards_dealer import deal_cards
 from game import FULL_STACK
 from game import play_hand_return_remaining
 from players import CallPlayer
@@ -21,9 +22,11 @@ class BetMoreThanStackCheater(Player):
 
 
 players = [CallPlayer(), FoldPlayer(), CallOneLessCheater()]
-assert play_hand_return_remaining(players) == [0, 1]
+board, cards = deal_cards(len(players))
+assert play_hand_return_remaining(players, board, cards) == [0, 1]
 
 players = [BetMoreThanStackCheater(), FoldPlayer(), CallPlayer()]
-assert play_hand_return_remaining(players) == [1, 2]
+board, cards = deal_cards(len(players))
+assert play_hand_return_remaining(players, board, cards) == [1, 2]
 
 print("Passed")

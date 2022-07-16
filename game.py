@@ -18,7 +18,7 @@ def update_players(players, state, board, round_number):
         player.update_state(state)
 
 
-def play_hand_return_remaining(players):
+def play_hand_return_remaining(players, board, players_cards):
     state = initial_state(len(players))
     stack = [FULL_STACK - s[1] for s in state]
     next_player = 2 % len(players)

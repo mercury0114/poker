@@ -1,5 +1,6 @@
 from time import sleep
 
+from cards_dealer import deal_cards
 from cards_dealer import display_cards
 from game import play_hand_return_remaining
 from players import AllInPlayer
@@ -50,4 +51,5 @@ class Human(Player):
 
 
 players = [Human(), AllInPlayer(), CallPlayer()]
-print(play_hand_return_remaining(players))
+board, cards = deal_cards(len(players))
+print(play_hand_return_remaining(players, board, cards))

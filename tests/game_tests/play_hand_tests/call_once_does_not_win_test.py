@@ -1,6 +1,7 @@
 from sys import path
 path.append("../../../")
 
+from cards_dealer import deal_cards
 from game import play_hand_return_remaining
 from players import FoldPlayer
 from players import Player
@@ -24,6 +25,7 @@ class Bet10Player(Player):
 
 
 players = [CallLess10Player(0), FoldPlayer(), Bet10Player()]
-assert play_hand_return_remaining(players) == [2]
+board, cards = deal_cards(len(players))
+assert play_hand_return_remaining(players, board, cards) == [2]
 
 print("Passed")

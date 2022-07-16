@@ -1,6 +1,7 @@
 from sys import path
 path.append("../../../")
 
+from cards_dealer import deal_cards
 from round_state import call_amount
 from game import play_hand_return_remaining
 from players import FoldPlayer
@@ -19,13 +20,16 @@ class BetIfNotCallPlayer(Player):
 
 
 players = [BetLess10Player(), BetIfNotCallPlayer()]
-assert play_hand_return_remaining(players) == [1]
+board, cards = deal_cards(len(players))
+assert play_hand_return_remaining(players, board, cards) == [1]
 
 players = [BetIfNotCallPlayer(), BetLess10Player()]
-assert play_hand_return_remaining(players) == [0, 1]
+board, cards = deal_cards(len(players))
+assert play_hand_return_remaining(players, board, cards) == [0, 1]
 
 # Non heads up
 players = [BetIfNotCallPlayer(), BetLess10Player(), FoldPlayer()]
-assert play_hand_return_remaining(players) == [0]
+board, cards = deal_cards(len(players))
+assert play_hand_return_remaining(players, board, cards) == [0]
 
 print("Passed")
