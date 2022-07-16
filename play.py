@@ -2,10 +2,12 @@ from time import sleep
 
 from cards_dealer import deal_cards
 from cards_dealer import display_cards
+from evaluator import read_evaluation_table
 from game import play_hand_return_remaining
 from players import AllInPlayer
 from players import CallPlayer
 from players import Player
+from utils import determine_winners
 
 
 def display_row(row_name, row):
@@ -52,4 +54,10 @@ class Human(Player):
 
 players = [Human(), AllInPlayer(), CallPlayer()]
 board, cards = deal_cards(len(players))
-remaining = play_hand_return_remaining(players, board, cards)
+remaining_players = play_hand_return_remaining(players, board, cards)
+remaining_cards = [cards[p] for p in remaining_players]
+
+evaluation_table = read_evaluation_table()
+winners = determine_winners(board, remaining_cards, evaluation_table)
+print([remaining_players[winner] for winner in winners])
+names = [f"player{i}" for i in remaining_players]
