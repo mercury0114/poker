@@ -27,7 +27,7 @@ def play_hand_return_remaining(players, board, players_cards):
     for i, player in enumerate(players):
         name = f"player{i}"
         player.set_players_count(len(players))
-        player.show_cards(name, players_cards[name])
+        player.show_cards(name, players_cards[i])
         player.set_position(i)
 
     while round_number < len(REVEAL_CARDS):
@@ -49,5 +49,5 @@ def play_hand_return_remaining(players, board, players_cards):
     for player in players:
         for index in players_left(state):
             name = f"player{index}"
-            player.show_cards(name, players_cards[name])
+            player.show_cards(name, players_cards[index])
     return players_left(state)

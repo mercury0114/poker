@@ -19,7 +19,8 @@ def display_cards(name, cards):
 
 def deal_cards(number):
     board_cards = ["?", "?", "?", "?", "?"]
-    players = {f"player{i}": ["?", "?"] for i in range(number)}
+    players = [["?", "?"]] * number
+    # players = {f"player{i}": ["?", "?"] for i in range(number)}
     free_cards = get_free_cards(board_cards, players)
     return simulate_game(board_cards, players, free_cards)
 

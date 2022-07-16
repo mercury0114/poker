@@ -8,8 +8,10 @@ def read_cards(file_name):
     board_cards = replace_10_by_t(f.readline().split()[1:])
     # Filling remaining board cards with question marks
     board_cards += ["?"] * (5 - len(board_cards))
-    players = {row.split()[0]: replace_10_by_t(row.split()[1:]) for row in f}
-    return board_cards, players
+    rows = list(f)
+    names = [row.split()[0] for row in rows]
+    players_cards = [replace_10_by_t(row.split()[1:]) for row in rows]
+    return board_cards, names, players_cards
 
 
 def replace_10_by_t(cards):
@@ -20,18 +22,18 @@ def check_cards_are_valid(board_cards, players):
     if len(board_cards) > 5:
         print("Too many board cards")
         exit()
-    if not all(len(players[player]) == 2 for player in players):
+    if not all(len(player) == 2 for player in players):
         print("Each player needs to have 2 cards, mark unknown with ?")
-        exit()
+        exit(1)
     used_cards = get_used_cards(board_cards, players)
     if not all(valid_card(card) for card in used_cards):
-        exit()
+        exit(1)
     if len(set(used_cards)) != len(used_cards):
         print("Duplicate cards are not allowed")
-        exit()
+        exit(1)
     if len(players) < 2 or len(players) > 10:
         print("At least 2 players, at most 10 players")
-        exit()
+        exit(1)
 
 
 def valid_card(card):

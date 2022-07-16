@@ -52,4 +52,4 @@ class Human(Player):
 
 players = [Human(), AllInPlayer(), CallPlayer()]
 board, cards = deal_cards(len(players))
-print(play_hand_return_remaining(players, board, cards))
+remaining = play_hand_return_remaining(players, board, cards)

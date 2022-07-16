@@ -10,12 +10,12 @@ if len(argv) != 2:
     print("python3 analyzer.py [cards_file.txt]")
     exit()
 
-board_cards, players = read_cards(argv[1])
+board_cards, names, players = read_cards(argv[1])
 evaluation_table = read_evaluation_table()
 
 print("Succesfully read cards, performing simulations...")
-win_count = perform_simulations(board_cards, players, evaluation_table)
+win_count = perform_simulations(board_cards, names, players, evaluation_table)
 
 print("All simulations completed, final results:")
-for player in players:
-    print(f"{player}: {(win_count[player] / SIMULATION_COUNT) * 100}%")
+for name in names:
+    print(f"{name}: {(win_count[name] / SIMULATION_COUNT) * 100}%")

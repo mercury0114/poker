@@ -6,11 +6,15 @@ from simulator import perform_simulations
 
 evaluation_table = read_evaluation_table()
 while True:
-    board_cards, players = deal_flop_and_turn(2)
+    board_cards, players_cards = deal_flop_and_turn(2)
     print(board_cards)
-    for player in players:
-        print(player, players[player])
-    win_count = perform_simulations(board_cards, players, evaluation_table)
+    names = [f"player{i}" for i in range(len(players_cards))]
+    for name, cards in zip(names, players_cards):
+        print(f"{name}: {cards}")
+    win_count = perform_simulations(board_cards,
+                                    names,
+                                    players_cards,
+                                    evaluation_table)
     worst_player = min(win_count, key=lambda p: win_count[p])
     print(f"Enter loosing odds for {worst_player}, type 'a' for an answer:")
     odds = loosing_odds(win_count, worst_player)
