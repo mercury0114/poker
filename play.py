@@ -2,9 +2,9 @@ from cards_dealer import deal_cards
 from cards_dealer import display_cards
 from evaluator import read_evaluation_table
 from game import play_hand_return_remaining
-from players import AllInPlayer
-from players import Human
-from players import CallPlayer
+from players.donkeys import AllInPlayer
+from players.donkeys import CallPlayer
+from players.human import Human
 from stack import compute_pot
 from stack import full_stack_for_all
 from utils import determine_winners
@@ -59,5 +59,5 @@ def play(players):
 
 
 you = Human()
-players = [AllInPlayer(), CallPlayer(), you]
+players = [you, AllInPlayer(), CallPlayer()]
 play(players)

@@ -5,8 +5,8 @@ from unittest import main
 from unittest import TestCase
 
 from game import play_hand_return_remaining
-from players import FoldPlayer
-from players import Player
+from players.donkeys import FoldPlayer
+from players.player import Player
 from stack import full_stack_for_all
 from round_state import call_amount
 

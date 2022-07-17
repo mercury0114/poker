@@ -1,33 +1,6 @@
-from stack import FULL_STACK
+from players.player import Player
 from cards_dealer import display_cards
 from cards_dealer import display_row
-
-
-class Player:
-    def __init__(self):
-        self.state = None
-        self.position = None
-        self.players_count = None
-        self.cards = None
-        self.board = None
-
-    def update_state(self, state):
-        self.state = state
-
-    def set_cards(self, cards):
-        self.cards = cards
-
-    def set_board(self, board):
-        self.board = board
-
-    def set_position(self, position):
-        self.position = position
-
-    def set_players_count(self, count):
-        self.players_count = count
-
-    def get_name(self):
-        return f"player{self.position}"
 
 
 class Human(Player):
@@ -36,7 +9,8 @@ class Human(Player):
         print("Enter your bet amount")
         return int(input())
 
-    def get_name(self):
+    @staticmethod
+    def get_name():
         return "You"
 
     def display_names(self):
@@ -66,19 +40,3 @@ class Human(Player):
     def set_cards(self, cards):
         super().set_cards(cards)
         display_cards("Your cards", cards)
-
-
-class CallPlayer(Player):
-    def bet(self):
-        return max(s[1] for s in self.state) - self.state[self.position][1]
-
-
-class FoldPlayer(Player):
-    @staticmethod
-    def bet():
-        return 0
-
-
-class AllInPlayer(Player):
-    def bet(self):
-        return FULL_STACK - self.state[self.position][1]

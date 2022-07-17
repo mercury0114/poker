@@ -6,8 +6,8 @@ from unittest import TestCase
 
 from cards_dealer import deal_cards
 from game import play_hand_return_remaining
-from players import AllInPlayer
-from players import FoldPlayer
+from players.donkeys import AllInPlayer
+from players.donkeys import FoldPlayer
 from stack import full_stack_for_all
 
 
