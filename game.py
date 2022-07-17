@@ -1,4 +1,3 @@
-from cards_dealer import deal_cards
 from stack import valid_stack
 from round_state import cheating
 from round_state import initial_state
@@ -12,9 +11,9 @@ BOARD = "Board"
 REVEAL_CARDS = [0, 3, 4, 5]
 
 
-def update_players(players, state, board, round_number):
+def update_players(players, state, revealed_board):
     for player in players:
-        player.show_cards(BOARD, board[:REVEAL_CARDS[round_number]])
+        player.set_board(revealed_board)
         player.update_state(state)
 
 
@@ -26,15 +25,13 @@ def play_hand_return_remaining(players, stack, board, players_cards):
 
     next_player = 2 % len(players)
     round_number = 0
-    board, players_cards = deal_cards(len(players))
     for i, player in enumerate(players):
-        name = f"player{i}"
         player.set_players_count(len(players))
-        player.show_cards(name, players_cards[i])
+        player.set_cards(players_cards[i])
         player.set_position(i)
 
     while round_number < len(REVEAL_CARDS):
-        update_players(players, state, board, round_number)
+        update_players(players, state, board[:REVEAL_CARDS[round_number]])
         bet = players[next_player].bet()
         if cheating(state, next_player, bet, stack[next_player]):
             bet = 0
@@ -44,13 +41,8 @@ def play_hand_return_remaining(players, stack, board, players_cards):
         if len(left) == 1:
             return left
         if round_ended(state):
-            update_players(players, state, board, round_number)
+            update_players(players, state, board[:REVEAL_CARDS[round_number]])
             round_number += 1
             state = refresh(state)
         next_player = player_to_act(state)
-
-    for player in players:
-        for index in players_left(state):
-            name = f"player{index}"
-            player.show_cards(name, players_cards[index])
     return players_left(state)

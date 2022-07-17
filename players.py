@@ -6,13 +6,17 @@ class Player:
         self.state = None
         self.position = None
         self.players_count = None
-        self.cards = {}
+        self.cards = None
+        self.board = None
 
     def update_state(self, state):
         self.state = state
 
-    def show_cards(self, name, cards):
-        self.cards[name] = cards
+    def set_cards(self, cards):
+        self.cards = cards
+
+    def set_board(self, board):
+        self.board = board
 
     def set_position(self, position):
         self.position = position

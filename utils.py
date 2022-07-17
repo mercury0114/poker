@@ -6,15 +6,15 @@ from evaluator import SUITS
 from evaluator import evaluate_with_table
 
 
-def determine_winners(board_cards, players, evaluation_table):
-    best_hands = [0] * len(players)
-    for i, player in enumerate(players):
+def determine_winners(board_cards, players_cards, evaluation_table):
+    best_hands = [0] * len(players_cards)
+    for i, player in enumerate(players_cards):
         seven_cards = board_cards + player
         evaluations = [evaluate_with_table(hand, evaluation_table)
                        for hand in combinations(seven_cards, 5)]
         best_hands[i] = max(evaluations)
     winning = max(best_hands)
-    return [i for i, player in enumerate(players) if best_hands[i] == winning]
+    return [i for i, hand in enumerate(best_hands) if hand == winning]
 
 
 def get_free_cards(board_cards, players):

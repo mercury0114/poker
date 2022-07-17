@@ -8,6 +8,7 @@ from players import AllInPlayer
 from players import CallPlayer
 from players import Player
 from round_state import FOLD
+from stack import compute_pot
 from stack import full_stack_for_all
 from utils import determine_winners
 
@@ -18,9 +19,6 @@ def display_row(row_name, row):
 
 
 class Human(Player):
-    def show_cards(self, name, cards):
-        display_cards(name, cards)
-
     @staticmethod
     def bet():
         return int(input())
@@ -39,12 +37,13 @@ class Human(Player):
         display_row("Status", statuses)
 
     def display_new_action(self):
+        display_cards("Board", self.board)
         self.display_names()
         self.display_investments()
         self.display_statuses()
         print("")
         if self.state[self.position][0] != FOLD:
-            sleep(3)
+            sleep(1)
 
     def set_position(self, position):
         super().set_position(position)
@@ -54,15 +53,30 @@ class Human(Player):
         super().update_state(state)
         self.display_new_action()
 
+    def set_cards(self, cards):
+        super().set_cards(cards)
+        display_cards("Your cards", cards)
 
+
+evaluation_table = read_evaluation_table()
 players = [Human(), AllInPlayer(), CallPlayer()]
 board, cards = deal_cards(len(players))
 stack = full_stack_for_all(len(players))
+old_stack = stack.copy()
 remaining_players = play_hand_return_remaining(players, stack, board, cards)
-print(remaining_players)
+remaining_names = [f"player{i}" for i in remaining_players]
 remaining_cards = [cards[p] for p in remaining_players]
 
-evaluation_table = read_evaluation_table()
+for i, cards in enumerate(remaining_cards):
+    display_cards(remaining_names[i], cards)
+
 winners = determine_winners(board, remaining_cards, evaluation_table)
-print([remaining_players[winner] for winner in winners])
-names = [f"player{i}" for i in remaining_players]
+pot = compute_pot(old_stack, stack)
+winner_names = [f"{remaining_names[i]}" for i in winners]
+print(f"Winners: {winner_names}")
+human_earnings = stack[0] - old_stack[0]
+if "player0" in winner_names:
+    human_earnings += pot // len(winners)
+    print(f"You won {human_earnings} small-blinds")
+else:
+    print(f"You lost {-human_earnings} small-blinds")
