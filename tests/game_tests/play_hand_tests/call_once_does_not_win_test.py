@@ -1,18 +1,18 @@
 from sys import path
 path.append("../../../")
 
+from unittest import main
+from unittest import TestCase
+
 from cards_dealer import deal_cards
 from game import play_hand_return_remaining
 from players import FoldPlayer
 from players import Player
 from round_state import call_amount
+from stack import full_stack_for_all
 
 
 class CallLess10Player(Player):
-    def __init__(self, position):
-        super().__init__()
-        self.position = position
-
     def bet(self):
         amount = call_amount(self.state, self.position)
         return amount if amount < 10 else 0
@@ -24,8 +24,14 @@ class Bet10Player(Player):
         return 10
 
 
-players = [CallLess10Player(0), FoldPlayer(), Bet10Player()]
-board, cards = deal_cards(len(players))
-assert play_hand_return_remaining(players, board, cards) == [2]
+class Unit(TestCase):
+    def test1(self):
+        players = [CallLess10Player(), FoldPlayer(), Bet10Player()]
+        board, cards = deal_cards(len(players))
+        stack = full_stack_for_all(len(players))
+        remaining = play_hand_return_remaining(players, stack, board, cards)
+        self.assertEqual(remaining, [2])
 
-print("Passed")
+
+if __name__ == '__main__':
+    main()

@@ -1,18 +1,28 @@
 from sys import path
 path.append("../../")
 
+from unittest import main
+from unittest import TestCase
+
 from cards_dealer import deal_cards
 from game import play_hand_return_remaining
 from players import CallPlayer
+from stack import full_stack_for_all
 
-player0, player1 = CallPlayer(), CallPlayer()
-players = [player0, player1]
-board, cards = deal_cards(len(players))
-play_hand_return_remaining(players, board, cards)
 
-assert player0.position == 0
-assert player1.position == 1
-assert player0.players_count == 2
-assert player1.players_count == 2
+class Unit(TestCase):
+    def test1(self):
+        player0, player1 = CallPlayer(), CallPlayer()
+        players = [player0, player1]
+        stack = full_stack_for_all(len(players))
+        board, cards = deal_cards(len(players))
+        play_hand_return_remaining(players, stack, board, cards)
 
-print("Passed")
+        self.assertEqual(player0.position, 0)
+        self.assertEqual(player1.position, 1)
+        self.assertEqual(player0.players_count, 2)
+        self.assertEqual(player1.players_count, 2)
+
+
+if __name__ == '__main__':
+    main()

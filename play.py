@@ -7,6 +7,8 @@ from game import play_hand_return_remaining
 from players import AllInPlayer
 from players import CallPlayer
 from players import Player
+from round_state import FOLD
+from stack import full_stack_for_all
 from utils import determine_winners
 
 
@@ -41,7 +43,8 @@ class Human(Player):
         self.display_investments()
         self.display_statuses()
         print("")
-        sleep(3)
+        if self.state[self.position][0] != FOLD:
+            sleep(3)
 
     def set_position(self, position):
         super().set_position(position)
@@ -54,7 +57,9 @@ class Human(Player):
 
 players = [Human(), AllInPlayer(), CallPlayer()]
 board, cards = deal_cards(len(players))
-remaining_players = play_hand_return_remaining(players, board, cards)
+stack = full_stack_for_all(len(players))
+remaining_players = play_hand_return_remaining(players, stack, board, cards)
+print(remaining_players)
 remaining_cards = [cards[p] for p in remaining_players]
 
 evaluation_table = read_evaluation_table()

@@ -1,11 +1,15 @@
 from sys import path
 path.append("../../../")
 
+from unittest import main
+from unittest import TestCase
+
 from cards_dealer import deal_cards
 from round_state import call_amount
 from game import play_hand_return_remaining
 from players import FoldPlayer
 from players import Player
+from stack import full_stack_for_all
 
 
 class BetLess10Player(Player):
@@ -19,17 +23,29 @@ class BetIfNotCallPlayer(Player):
         return amount if amount else 20
 
 
-players = [BetLess10Player(), BetIfNotCallPlayer()]
-board, cards = deal_cards(len(players))
-assert play_hand_return_remaining(players, board, cards) == [1]
+class Unit(TestCase):
+    def test1(self):
+        players = [BetLess10Player(), BetIfNotCallPlayer()]
+        stack = full_stack_for_all(len(players))
+        board, cards = deal_cards(len(players))
+        remaining = play_hand_return_remaining(players, stack, board, cards)
+        self.assertEqual(remaining, [1])
 
-players = [BetIfNotCallPlayer(), BetLess10Player()]
-board, cards = deal_cards(len(players))
-assert play_hand_return_remaining(players, board, cards) == [0, 1]
+    def test2(self):
+        players = [BetIfNotCallPlayer(), BetLess10Player()]
+        stack = full_stack_for_all(len(players))
+        board, cards = deal_cards(len(players))
+        remaining = play_hand_return_remaining(players, stack, board, cards)
+        self.assertEqual(remaining, [0, 1])
 
-# Non heads up
-players = [BetIfNotCallPlayer(), BetLess10Player(), FoldPlayer()]
-board, cards = deal_cards(len(players))
-assert play_hand_return_remaining(players, board, cards) == [0]
+    # Non heads up test
+    def test3(self):
+        players = [BetIfNotCallPlayer(), BetLess10Player(), FoldPlayer()]
+        stack = full_stack_for_all(len(players))
+        board, cards = deal_cards(len(players))
+        remaining = play_hand_return_remaining(players, stack, board, cards)
+        self.assertEqual(remaining, [0])
 
-print("Passed")
+
+if __name__ == '__main__':
+    main()

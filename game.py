@@ -1,4 +1,5 @@
 from cards_dealer import deal_cards
+from stack import valid_stack
 from round_state import cheating
 from round_state import initial_state
 from round_state import update_round_state
@@ -7,7 +8,6 @@ from round_state import round_ended
 from round_state import player_to_act
 from round_state import refresh
 
-FULL_STACK = 200
 BOARD = "Board"
 REVEAL_CARDS = [0, 3, 4, 5]
 
@@ -18,9 +18,12 @@ def update_players(players, state, board, round_number):
         player.update_state(state)
 
 
-def play_hand_return_remaining(players, board, players_cards):
+def play_hand_return_remaining(players, stack, board, players_cards):
+    assert valid_stack(stack), f"{stack} is not valid"
     state = initial_state(len(players))
-    stack = [FULL_STACK - s[1] for s in state]
+    for i, s in enumerate(state):
+        stack[i] -= s[1]
+
     next_player = 2 % len(players)
     round_number = 0
     board, players_cards = deal_cards(len(players))

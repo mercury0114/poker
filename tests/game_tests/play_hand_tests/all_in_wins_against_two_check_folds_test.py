@@ -1,21 +1,38 @@
 from sys import path
 path.append("../../../")
 
+from unittest import main
+from unittest import TestCase
+
 from cards_dealer import deal_cards
 from game import play_hand_return_remaining
 from players import AllInPlayer
 from players import FoldPlayer
+from stack import full_stack_for_all
 
-players = [FoldPlayer(), FoldPlayer(), AllInPlayer()]
-board, cards = deal_cards(len(players))
-assert play_hand_return_remaining(players, board, cards) == [2]
 
-players = [FoldPlayer(), AllInPlayer(), FoldPlayer()]
-board, cards = deal_cards(len(players))
-assert play_hand_return_remaining(players, board, cards) == [1]
+class Unit(TestCase):
+    def test1(self):
+        players = [FoldPlayer(), FoldPlayer(), AllInPlayer()]
+        stack = full_stack_for_all(len(players))
+        board, cards = deal_cards(len(players))
+        remaining = play_hand_return_remaining(players, stack, board, cards)
+        self.assertEqual(remaining, [2])
 
-players = [AllInPlayer(), FoldPlayer(), FoldPlayer()]
-board, cards = deal_cards(len(players))
-assert play_hand_return_remaining(players, board, cards) == [0]
+    def test2(self):
+        players = [FoldPlayer(), AllInPlayer(), FoldPlayer()]
+        stack = full_stack_for_all(len(players))
+        board, cards = deal_cards(len(players))
+        remaining = play_hand_return_remaining(players, stack, board, cards)
+        self.assertEqual(remaining, [1])
 
-print("Passed")
+    def test3(self):
+        players = [AllInPlayer(), FoldPlayer(), FoldPlayer()]
+        stack = full_stack_for_all(len(players))
+        board, cards = deal_cards(len(players))
+        remaining = play_hand_return_remaining(players, stack, board, cards)
+        self.assertEqual(remaining, [0])
+
+
+if __name__ == '__main__':
+    main()

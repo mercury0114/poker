@@ -1,4 +1,4 @@
-from game import FULL_STACK
+from stack import FULL_STACK
 
 
 class Player:

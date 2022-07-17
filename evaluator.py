@@ -50,7 +50,9 @@ def evaluate(cards):
 
 def read_evaluation_table():
     table_path = dirname(__file__) + "/evaluation_table.txt"
-    rows = [row.split() for row in open(table_path)]
+    f = open(table_path)
+    rows = [row.split() for row in f]
+    f.close()
     return {row[1]: int(row[0]) for row in rows}
 
 
