@@ -46,6 +46,15 @@ class Unit(TestCase):
         winners = determine_winners(board, players_cards, evaluation_table)
         self.assertEqual(winners, [1])
 
+    def test5(self):
+        evaluation_table = read_evaluation_table()
+        board = ['2s', '5c', '6c', '3h', 'Js']
+        player0 = ['Qh', '4h']
+        player1 = ['4d', '5d']
+        players_cards = [player0, player1]
+        winners = determine_winners(board, players_cards, evaluation_table)
+        self.assertEqual(winners, [0, 1])
+
 
 if __name__ == '__main__':
     main()

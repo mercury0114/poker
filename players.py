@@ -36,6 +36,7 @@ class Player:
 class Human(Player):
     @staticmethod
     def bet():
+        print("Enter your bet amount")
         return int(input())
 
     def get_name(self):
@@ -62,10 +63,6 @@ class Human(Player):
         print("")
         if self.state[self.position][0] != FOLD:
             sleep(1)
-
-    def set_position(self, position):
-        super().set_position(position)
-        print(f"You are player{position}\n")
 
     def update_state(self, state):
         super().update_state(state)
