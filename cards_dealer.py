@@ -12,6 +12,11 @@ def card_string(card):
     return rank + SYMBOLS[card[1]]
 
 
+def display_row(row_name, row):
+    formatted_row = [entry.ljust(10) for entry in row]
+    print(f"{row_name}:".ljust(10) + ' '.join(formatted_row))
+
+
 def display_cards(name, cards):
     string = name + ": " + '  '.join([card_string(card) for card in cards])
     print(string)
