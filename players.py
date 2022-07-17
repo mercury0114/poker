@@ -1,9 +1,6 @@
-from time import sleep
-
 from stack import FULL_STACK
 from cards_dealer import display_cards
 from cards_dealer import display_row
-from round_state import FOLD
 
 
 class Player:
@@ -61,8 +58,6 @@ class Human(Player):
         self.display_investments()
         self.display_statuses()
         print("")
-        if self.state[self.position][0] != FOLD:
-            sleep(1)
 
     def update_state(self, state):
         super().update_state(state)

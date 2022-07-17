@@ -1,5 +1,4 @@
 -Fix average stats calculation
--Handle all in separately when displaying the game in play.py
 -Refactor tests to use UnitTest framework
 -create displayer file for printing cards to the console
 -Fix odds_calculator function

@@ -28,7 +28,7 @@ def play_hand_return_wins(players):
     winner_names = [players[remaining[i]].get_name() for i in winners]
     wins = [s - old_stack[i] for i, s in enumerate(stack)]
 
-    for i, in range(len(wins)):
+    for i, _ in enumerate(wins):
         name = players[i].get_name()
         if name in winner_names:
             wins[i] += pot // len(winners)
