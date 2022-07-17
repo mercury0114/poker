@@ -7,7 +7,11 @@ class Human(Player):
     @staticmethod
     def bet():
         print("Enter your bet amount")
-        return int(input())
+        n = input()
+        while not n.isdigit():
+            print("Enter a number")
+            n = input()
+        return int(n)
 
     @staticmethod
     def get_name():
