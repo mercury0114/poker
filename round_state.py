@@ -35,10 +35,13 @@ def initial_state(players_number):
 
 
 def player_to_act(state):
+    if state == initial_state(len(state)):
+        return 2 % len(state)
     if round_ended(state):
         state = refresh(state)
     index = (state == refresh(state) and len(state) == 2)
-    index = next((i for i, v in enumerate(state) if v[0] == RAISE), index)
+    generator = (i for i, v in enumerate(state) if v[0] not in (FOLD, PENDING))
+    index = next(generator, index)
     while state[index][0] != PENDING:
         index = (index + 1) % len(state)
     return index
