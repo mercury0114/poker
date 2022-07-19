@@ -10,4 +10,4 @@ def full_stack_for_all(number_of_players):
 
 
 def valid_stack(stack):
-    return 1 < len(stack) <= 10 and all(s > 1 for s in stack)
+    return 1 < len(stack) <= 10 and all(s >= 2 for s in stack)
