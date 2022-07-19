@@ -3,14 +3,7 @@ from itertools import product
 
 from evaluator import RANKS
 from evaluator import SUITS
-from evaluator import evaluate
 from evaluator import evaluate_with_table
-
-
-def best_hand(board_cards, player_cards):
-    all_hands = combinations(board_cards + player_cards, 5)
-    evaluations = [evaluate(hand) for hand in all_hands]
-    return max(evaluations)
 
 
 def determine_winners(board_cards, players_cards, evaluation_table):

@@ -1,5 +1,6 @@
 from os.path import dirname
 from collections import Counter
+from itertools import combinations
 
 RANKS = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"]
 SUITS = ["h", "d", "c", "s"]
@@ -10,7 +11,15 @@ FLUSH_SCORE = 5863
 
 
 def check_flush(cards):
+    if len(cards) != 5:
+        return False
     return all(map(lambda card: card[1] == cards[0][1], cards))
+
+
+def check_straight(ranks):
+    if len(ranks) != 5:
+        return False
+    return ranks in [list(range(ranks[0], ranks[0] - 5, -1)), WHEEL]
 
 
 # returns a list of ranks in a tiebreaking order,
@@ -31,7 +40,7 @@ def sorted_ranks(cards):
 # combo_index is an index to the COMBOS array. e.g. 4 means "Straight".
 def evaluate(cards):
     ranks = sorted_ranks(cards)
-    straight = ranks in [list(range(ranks[0], ranks[0] - 5, -1)), WHEEL]
+    straight = check_straight(ranks)
     flush = check_flush(cards)
     counts = dict(Counter(ranks)).values()
     pairs = list(counts).count(2)
@@ -46,6 +55,13 @@ def evaluate(cards):
     if straight:
         return (4, ranks)
     return (3 in counts) + pairs, ranks
+
+
+def best_hand_evaluation(board_cards, player_cards):
+    number = len(board_cards) + len(player_cards)
+    all_hands = combinations(board_cards + player_cards, min(number, 5))
+    evaluations = [evaluate(hand) for hand in all_hands]
+    return max(evaluations)
 
 
 def read_evaluation_table():
