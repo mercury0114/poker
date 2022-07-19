@@ -1,6 +1,6 @@
 from players.player import Player
-from cards_dealer import display_cards
-from cards_dealer import display_row
+from cards.dealer import display_cards
+from cards.dealer import display_row
 
 
 class Human(Player):

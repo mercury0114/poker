@@ -1,6 +1,6 @@
 from random import shuffle
 
-from cards_reader import check_cards_are_valid
+from cards.reader import check_cards_are_valid
 from utils import determine_winners
 from utils import get_free_cards
 

@@ -1,4 +1,4 @@
-from cards_dealer import deal_flop_and_turn
+from cards.dealer import deal_flop_and_turn
 from evaluator import read_evaluation_table
 from odds_calculator import loosing_odds
 from odds_calculator import similar_odds
