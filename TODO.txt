@@ -1,4 +1,5 @@
 -Refactor tests to use UnitTest framework
 -create displayer file for printing cards to the console
 -Fix odds_calculator function
+-Update README.md
 -Write tests for the evaluation function

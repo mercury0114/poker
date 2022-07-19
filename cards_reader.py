@@ -9,6 +9,7 @@ def read_cards(file_name):
     # Filling remaining board cards with question marks
     board_cards += ["?"] * (5 - len(board_cards))
     rows = list(f)
+    f.close()
     names = [row.split()[0] for row in rows]
     players_cards = [replace_10_by_t(row.split()[1:]) for row in rows]
     return board_cards, names, players_cards
