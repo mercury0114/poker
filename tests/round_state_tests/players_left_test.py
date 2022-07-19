@@ -1,15 +1,32 @@
 from sys import path
 path[0] = "../../"
 
+from unittest import main
+from unittest import TestCase
+
+from round_state import FOLD
 from round_state import PENDING
 from round_state import players_left
 from round_state import update_round_state
 
-round_state = [(PENDING, 1), (PENDING, 2), (PENDING, 0)]
-assert players_left(round_state) == [0, 1, 2]
-update_round_state(round_state, 2, 0)
-assert players_left(round_state) == [0, 1]
-update_round_state(round_state, 0, 0)
-assert players_left(round_state) == [1]
 
-print("Passed")
+class Unit(TestCase):
+    def test1(self):
+        state = [(PENDING, 1), (PENDING, 2), (PENDING, 0)]
+        self.assertEqual(players_left(state), [0, 1, 2])
+        update_round_state(state, 2, 0)
+        self.assertEqual(state, [(PENDING, 1), (PENDING, 2), (FOLD, 0)])
+
+    def test2(self):
+        state = [(PENDING, 1), (PENDING, 2), (FOLD, 0)]
+        self.assertEqual(players_left(state), [0, 1])
+        update_round_state(state, 0, 0)
+        self.assertEqual(state, [(FOLD, 1), (PENDING, 2), (FOLD, 0)])
+
+    def test3(self):
+        state = [(FOLD, 1), (PENDING, 2), (FOLD, 0)]
+        self.assertEqual(players_left(state), [1])
+
+
+if __name__ == "__main__":
+    main()

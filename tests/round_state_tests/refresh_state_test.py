@@ -1,16 +1,25 @@
 from sys import path
 path[0] = "../../"
 
+from unittest import main
+from unittest import TestCase
+
 from round_state import CALL
 from round_state import CHECK
 from round_state import FOLD
 from round_state import PENDING
 from round_state import refresh
 
-state = [(FOLD, 1), (CHECK, 2), (CALL, 2)]
-assert refresh(state) == [(FOLD, 0), (PENDING, 0), (PENDING, 0)]
 
-state = [(CALL, 2), (CHECK, 2), (CALL, 2)]
-assert refresh(state) == [(PENDING, 0), (PENDING, 0), (PENDING, 0)]
+class Unit(TestCase):
+    def test1(self):
+        state = refresh([(FOLD, 1), (CHECK, 2), (CALL, 2)])
+        self.assertEqual(state, [(FOLD, 0), (PENDING, 0), (PENDING, 0)])
 
-print("Passed")
+    def test2(self):
+        state = refresh([(CALL, 2), (CHECK, 2), (CALL, 2)])
+        self.assertEqual(state, [(PENDING, 0), (PENDING, 0), (PENDING, 0)])
+
+
+if __name__ == "__main__":
+    main()
