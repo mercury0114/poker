@@ -1,5 +1,5 @@
 from sys import path
-path.append("../../")
+path[0] = "../../"
 
 from odds_calculator import similar_odds
 

@@ -1,5 +1,5 @@
 from sys import path
-path.append("../../")
+path[0] = "../../"
 
 from cards_dealer import deal_flop_and_turn
 from cards_reader import check_cards_are_valid

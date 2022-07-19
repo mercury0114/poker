@@ -1,5 +1,5 @@
 from sys import path
-path.append("../../")
+path[0] = "../../"
 
 from cards_reader import read_cards
 from evaluator import read_evaluation_table

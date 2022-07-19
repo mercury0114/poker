@@ -1,7 +1,4 @@
--Fix average stats calculation
--Replace `path.append("../../")` with `path[0] = "../../"` for test files
 -Refactor tests to use UnitTest framework
 -create displayer file for printing cards to the console
 -Fix odds_calculator function
 -Write tests for the evaluation function
--Write performance tests for the simulator, will need these as a reference when optimising

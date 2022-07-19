@@ -1,5 +1,5 @@
 from sys import path
-path.append("../../")
+path[0] = "../../"
 
 from round_state import call_amount
 from round_state import CALL
