@@ -1,4 +1,3 @@
-from stack import FULL_STACK
 from players.player import Player
 
 
@@ -15,4 +14,4 @@ class FoldPlayer(Player):
 
 class AllInPlayer(Player):
     def bet(self):
-        return FULL_STACK - self.state[self.position][1]
+        return self.stack

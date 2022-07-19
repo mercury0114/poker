@@ -29,6 +29,7 @@ def play_hand_return_remaining(players, stack, board, players_cards):
         player.set_players_count(len(players))
         player.set_cards(players_cards[i])
         player.set_position(i)
+        player.set_stack(stack[i])
 
     while round_number < len(REVEAL_CARDS):
         update_players(players, state, board[:REVEAL_CARDS[round_number]])
@@ -36,6 +37,7 @@ def play_hand_return_remaining(players, stack, board, players_cards):
         if cheating(state, next_player, bet, stack[next_player]):
             bet = 0
         stack[next_player] -= bet
+        players[next_player].set_stack(stack[next_player])
         update_round_state(state, next_player, bet)
         left = players_left(state)
         if len(left) == 1:
