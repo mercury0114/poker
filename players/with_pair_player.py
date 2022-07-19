@@ -25,9 +25,9 @@ class WithPairPlayer(Player):
             suit1 = self.cards[0][0]
             suit2 = self.cards[1][0]
             return suit1 in LETTERS or suit2 in LETTERS
-        board_evaluation = best_hand_evaluation(self.board, [])
-        hand_evaluation = best_hand_evaluation(self.board, self.cards)
-        return hand_evaluation[0] >= board_evaluation[0]
+        board_evaluation = best_hand_evaluation(self.board, [])[0]
+        hand_evaluation = best_hand_evaluation(self.board, self.cards)[0]
+        return hand_evaluation > board_evaluation or hand_evaluation > 3
 
     def bet(self):
         amount = call_amount(self.state, self.position)

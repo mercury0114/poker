@@ -1,4 +1,3 @@
--Move best_hand_evaluation from utils to evaluator
 -Fix average stats calculation
 -Replace `path.append("../../")` with `path[0] = "../../"` for test files
 -Refactor tests to use UnitTest framework
