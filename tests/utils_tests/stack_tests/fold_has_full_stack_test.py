@@ -1,5 +1,5 @@
 from sys import path
-path[0] = "../../"
+path[0] = "../../../"
 
 from unittest import main
 from unittest import TestCase

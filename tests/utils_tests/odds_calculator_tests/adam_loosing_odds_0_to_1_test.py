@@ -1,13 +1,13 @@
 from sys import path
-path[0] = "../../"
+path[0] = "../../../"
 
 from unittest import main
 from unittest import TestCase
 
 from cards.reader import read_cards
 from cards.evaluator import read_evaluation_table
-from odds_calculator import loosing_odds
 from simulator import perform_simulations
+from utils.odds_calculator import loosing_odds
 
 
 class Unit(TestCase):

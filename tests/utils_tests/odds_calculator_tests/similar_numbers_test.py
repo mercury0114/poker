@@ -1,7 +1,7 @@
 from sys import path
-path[0] = "../../"
+path[0] = "../../../"
 
-from odds_calculator import similar_odds
+from utils.odds_calculator import similar_odds
 
 assert similar_odds(3, 3.05)
 assert similar_odds(0, 0)
