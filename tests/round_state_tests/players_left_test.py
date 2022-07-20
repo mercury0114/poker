@@ -4,10 +4,10 @@ path[0] = "../../"
 from unittest import main
 from unittest import TestCase
 
-from round_state import FOLD
-from round_state import PENDING
-from round_state import players_left
-from round_state import update_round_state
+from utils.round_state import FOLD
+from utils.round_state import PENDING
+from utils.round_state import players_left
+from utils.round_state import update_round_state
 
 
 class Unit(TestCase):

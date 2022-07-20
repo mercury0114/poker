@@ -5,10 +5,10 @@ from unittest import main
 from unittest import TestCase
 
 from cards.dealer import deal_cards
-from round_state import call_amount
 from engine.game import play_hand_return_remaining
 from players.donkeys import FoldPlayer
 from players.player import Player
+from utils.round_state import call_amount
 from utils.stack import full_stack_for_all
 
 

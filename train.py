@@ -1,8 +1,8 @@
 from cards.dealer import deal_flop_and_turn
 from cards.evaluator import read_evaluation_table
-from simulator import perform_simulations
 from utils.odds_calculator import loosing_odds
 from utils.odds_calculator import similar_odds
+from utils.simulator import perform_simulations
 
 evaluation_table = read_evaluation_table()
 while True:
