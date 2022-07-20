@@ -1,8 +1,8 @@
 from random import shuffle
 
 from cards.reader import check_cards_are_valid
-from utils import determine_winners
-from utils import get_free_cards
+from cards.evaluator import determine_winners
+from cards.notation import get_free_cards
 
 SIMULATION_COUNT = 10000
 NEVER_LOOSE = "never lose"
