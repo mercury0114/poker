@@ -6,8 +6,8 @@ from unittest import TestCase
 
 from cards.reader import read_cards
 from cards.evaluator import read_evaluation_table
-from simulator import perform_simulations
 from utils.odds_calculator import loosing_odds
+from utils.simulator import perform_simulations
 
 
 class Unit(TestCase):

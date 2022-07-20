@@ -2,8 +2,8 @@ from sys import argv
 
 from cards.reader import read_cards
 from cards.evaluator import read_evaluation_table
-from simulator import perform_simulations
-from simulator import SIMULATION_COUNT
+from utils.simulator import perform_simulations
+from utils.simulator import SIMULATION_COUNT
 
 if len(argv) != 2:
     print("usage:")

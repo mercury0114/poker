@@ -1,5 +1,5 @@
-from simulator import simulate_game
 from cards.notation import get_free_cards
+from utils.simulator import simulate_game
 
 
 def deal_cards(number):
