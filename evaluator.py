@@ -72,6 +72,8 @@ def read_evaluation_table():
     return {row[1]: int(row[0]) for row in rows}
 
 
+# Better hand will be evaluated to a higher number. Number output does not
+# have a meaning, unlike output of the evaluate(cards) function
 def evaluate_with_table(cards, table):
     ranks = "".join([RANKS[rank] for rank in sorted_ranks(cards)])
     score = table[ranks]
