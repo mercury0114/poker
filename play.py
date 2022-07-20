@@ -1,4 +1,4 @@
-from game_engine import play
+from engine.game_engine import play
 from players.human import Human
 from players.with_pair_player import WithPairPlayer
 

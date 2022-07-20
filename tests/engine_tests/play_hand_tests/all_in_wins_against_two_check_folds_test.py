@@ -5,7 +5,7 @@ from unittest import main
 from unittest import TestCase
 
 from cards.dealer import deal_cards
-from game import play_hand_return_remaining
+from engine.game import play_hand_return_remaining
 from players.donkeys import AllInPlayer
 from players.donkeys import FoldPlayer
 from stack import full_stack_for_all
