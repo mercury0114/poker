@@ -1,4 +1,4 @@
--create displayer file for printing cards to the console
+-Create displayer file for printing cards to the console
 -Fix odds_calculator function
 -Think how rewrite cards_tests
 -Update README.md
