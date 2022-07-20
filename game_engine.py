@@ -1,6 +1,6 @@
 from cards.dealer import deal_cards
 from cards.displayer import display_cards
-from evaluator import read_evaluation_table
+from cards.evaluator import read_evaluation_table
 from game import play_hand_return_remaining
 from stack import compute_pot
 from stack import full_stack_for_all

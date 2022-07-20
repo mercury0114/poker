@@ -1,8 +1,8 @@
 from random import choice
 
+from cards.evaluator import best_hand_evaluation
 from players.player import Player
 from round_state import call_amount
-from evaluator import best_hand_evaluation
 
 
 LETTERS = ["Q", "K", "A"]

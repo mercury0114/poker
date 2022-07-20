@@ -4,7 +4,7 @@ path[0] = "../"
 from unittest import main
 from unittest import TestCase
 
-from evaluator import best_hand_evaluation
+from cards.evaluator import best_hand_evaluation
 
 
 class Unit(TestCase):

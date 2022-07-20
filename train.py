@@ -1,5 +1,5 @@
 from cards.dealer import deal_flop_and_turn
-from evaluator import read_evaluation_table
+from cards.evaluator import read_evaluation_table
 from odds_calculator import loosing_odds
 from odds_calculator import similar_odds
 from simulator import perform_simulations

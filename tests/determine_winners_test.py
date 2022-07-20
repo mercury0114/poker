@@ -4,7 +4,7 @@ path[0] = "../"
 from unittest import main
 from unittest import TestCase
 
-from evaluator import read_evaluation_table
+from cards.evaluator import read_evaluation_table
 from utils import determine_winners
 
 

@@ -5,7 +5,7 @@ from unittest import main
 from unittest import TestCase
 
 from cards.reader import read_cards
-from evaluator import read_evaluation_table
+from cards.evaluator import read_evaluation_table
 from odds_calculator import loosing_odds
 from simulator import perform_simulations
 

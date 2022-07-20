@@ -1,5 +1,5 @@
-from evaluator import RANKS
-from evaluator import SUITS
+from cards.notation import RANKS
+from cards.notation import SUITS
 from utils import get_used_cards
 
 

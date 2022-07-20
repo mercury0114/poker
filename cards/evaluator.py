@@ -2,8 +2,9 @@ from os.path import dirname
 from collections import Counter
 from itertools import combinations
 
-RANKS = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"]
-SUITS = ["h", "d", "c", "s"]
+from cards.notation import RANKS
+
+
 COMBOS = ["High card", "Pair", "Two pairs", "Three of a kind", "Straight",
           "Flush", "Full house", "Four of a kind", "Straight flush"]
 WHEEL = [3, 2, 1, 0, 12]

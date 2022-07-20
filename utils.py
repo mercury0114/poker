@@ -1,9 +1,9 @@
 from itertools import combinations
 from itertools import product
 
-from evaluator import RANKS
-from evaluator import SUITS
-from evaluator import evaluate_with_table
+from cards.evaluator import evaluate_with_table
+from cards.notation import RANKS
+from cards.notation import SUITS
 
 
 def determine_winners(board_cards, players_cards, evaluation_table):
