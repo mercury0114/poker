@@ -1,5 +1,3 @@
--Move evaluator.py to cards directory
--Remove utils.py file
 -Fix odds_calculator function
 -Think how to rewrite cards_tests
 -Update README.md
