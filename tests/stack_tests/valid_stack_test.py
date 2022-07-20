@@ -4,7 +4,7 @@ path[0] = "../../"
 from unittest import TestCase
 from unittest import main
 
-from stack import valid_stack
+from utils.stack import valid_stack
 
 
 class Test(TestCase):

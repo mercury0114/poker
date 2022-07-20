@@ -7,8 +7,8 @@ from unittest import TestCase
 from cards.dealer import deal_cards
 from engine.game import play_hand_return_remaining
 from players.donkeys import FoldPlayer
-from stack import full_stack_for_all
-from stack import FULL_STACK
+from utils.stack import full_stack_for_all
+from utils.stack import FULL_STACK
 
 
 class Unit(TestCase):

@@ -4,8 +4,8 @@ path[0] = "../../"
 from unittest import TestCase
 from unittest import main
 
-from stack import compute_pot
-from stack import full_stack_for_all
+from utils.stack import compute_pot
+from utils.stack import full_stack_for_all
 
 
 class Test(TestCase):

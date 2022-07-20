@@ -7,7 +7,7 @@ from unittest import TestCase
 from engine.game import play_hand_return_remaining
 from players.player import Player
 from round_state import call_amount
-from stack import full_stack_for_all
+from utils.stack import full_stack_for_all
 
 
 class Bet10Player(Player):
