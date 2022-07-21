@@ -1,17 +1,14 @@
-from players.player import Player
 from cards.displayer import display_cards
 from cards.displayer import display_row
+from players.player import Player
+from utils.request_input import request_input
 
 
 class Human(Player):
     @staticmethod
     def bet():
         print("Enter your bet amount")
-        n = input()
-        while not n.isdigit():
-            print("Enter a number")
-            n = input()
-        return int(n)
+        return int(request_input(lambda x: x.isdigit()))
 
     @staticmethod
     def get_name():

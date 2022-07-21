@@ -1,4 +1,3 @@
--Add tests that run 3 scripts in the root directory and verify they don't fail
 -Refactor engine directory
 -Think how to rewrite cards_tests
 -Update README.md
