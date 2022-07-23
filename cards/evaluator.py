@@ -4,7 +4,6 @@ from itertools import combinations
 
 from cards.notation import RANKS
 
-
 COMBOS = ["High card", "Pair", "Two pairs", "Three of a kind", "Straight",
           "Flush", "Full house", "Four of a kind", "Straight flush"]
 WHEEL = [3, 2, 1, 0, 12]
