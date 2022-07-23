@@ -1,3 +1,6 @@
+from cards.dealer import deal_cards
+from cards.displayer import display_cards
+from cards.evaluator import determine_winners
 from utils.round_state import cheating
 from utils.round_state import initial_state
 from utils.round_state import update_round_state
@@ -5,6 +8,8 @@ from utils.round_state import players_left
 from utils.round_state import round_ended
 from utils.round_state import player_to_act
 from utils.round_state import refresh
+from utils.stack import compute_pot
+from utils.stack import full_stack_for_all
 from utils.stack import valid_stack
 
 BOARD = "Board"
@@ -47,3 +52,31 @@ def play_hand_return_remaining(players, stack, board, players_cards):
             state = refresh(state)
         next_player = player_to_act(state)
     return players_left(state)
+
+
+def play_hand_return_wins(players, evaluation_table):
+    board, cards = deal_cards(len(players))
+    stack = full_stack_for_all(len(players))
+    old_stack = stack.copy()
+    remaining = play_hand_return_remaining(players, stack, board, cards)
+    remaining_cards = [cards[p] for p in remaining]
+
+    print("SHOWDOWN:")
+    for i, cards in enumerate(remaining_cards):
+        display_cards(players[remaining[i]].name_, cards)
+    print("")
+
+    winners = determine_winners(board, remaining_cards, evaluation_table)
+    pot = compute_pot(old_stack, stack)
+    winner_names = [players[remaining[i]].name_ for i in winners]
+    wins = [s - old_stack[i] for i, s in enumerate(stack)]
+
+    for i, _ in enumerate(wins):
+        name = players[i].name_
+        if name in winner_names:
+            wins[i] += pot // len(winners)
+            print(f"{name} won {wins[i]} blinds")
+        else:
+            print(f"{name} lost {-wins[i]} blinds")
+    print("")
+    return wins
