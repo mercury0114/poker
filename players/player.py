@@ -23,11 +23,5 @@ class Player:
     def set_board(self, board):
         self.board = board
 
-    def set_stack(self, stack):
-        self.stack = stack
-
     def get_players_count(self):
         return len(self.all_players_names)
-
-    def get_stack(self):
-        return self.stack
