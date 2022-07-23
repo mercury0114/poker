@@ -17,11 +17,5 @@ class Player:
         while all_players_names[self.position] != self.name:
             self.position += 1
 
-    def set_cards(self, cards):
-        self.cards = cards
-
-    def set_board(self, board):
-        self.board = board
-
     def get_players_count(self):
         return len(self.all_players_names)
