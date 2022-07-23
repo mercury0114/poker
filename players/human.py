@@ -10,10 +10,6 @@ class Human(Player):
         print("Enter your bet amount")
         return int(request_input(lambda x: x.isdigit()))
 
-    @staticmethod
-    def get_name():
-        return "You"
-
     def display_investments(self):
         investments = [s[1] for s in self.state]
         display_row("Invested", [str(money) for money in investments])

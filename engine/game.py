@@ -14,7 +14,7 @@ REVEAL_CARDS = [0, 3, 4, 5]
 def update_players(players, state, revealed_board):
     for player in players:
         player.board = revealed_board
-        player.update_state(state)
+        player.state = state
 
 
 def play_hand_return_remaining(players, stack, board, players_cards):
@@ -27,14 +27,14 @@ def play_hand_return_remaining(players, stack, board, players_cards):
     round_number = 0
     for i, player in enumerate(players):
         player.cards = players_cards[i]
-        player.set_all_players_names([player.name for player in players])
+        player.set_all_players_names([player.name_ for player in players])
         player.stack = stack[i]
 
     while round_number < len(REVEAL_CARDS):
         update_players(players, state, board[:REVEAL_CARDS[round_number]])
         bet = 0 if not stack[next_player] else players[next_player].bet()
         if cheating(state, next_player, bet, stack[next_player]):
-            print(f"{players[next_player].name} cheats: bet={bet}")
+            print(f"{players[next_player].name_} cheats: bet={bet}")
             bet = 0
         stack[next_player] -= bet
         players[next_player].stack = stack[next_player]
