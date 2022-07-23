@@ -30,15 +30,15 @@ def play_hand_return_remaining(players, stack, board, players_cards):
     next_player = 2 % len(players)
     round_number = 0
     for i, player in enumerate(players):
-        player.cards = players_cards[i]
-        player.set_all_players_names([player.name_ for player in players])
+        player.set_cards(players_cards[i])
+        player.set_all_players_names([player.name for player in players])
         player.stack = stack[i]
 
     while round_number < len(REVEAL_CARDS):
         update_players(players, state, board[:REVEAL_CARDS[round_number]])
         bet = 0 if not stack[next_player] else players[next_player].bet()
         if cheating(state, next_player, bet, stack[next_player]):
-            print(f"{players[next_player].name_} cheats: bet={bet}")
+            print(f"{players[next_player].name} cheats: bet={bet}")
             bet = 0
         stack[next_player] -= bet
         players[next_player].stack = stack[next_player]
@@ -63,16 +63,16 @@ def play_hand_return_wins(players, evaluation_table):
 
     print("SHOWDOWN:")
     for i, cards in enumerate(remaining_cards):
-        display_cards(players[remaining[i]].name_, cards)
+        display_cards(players[remaining[i]].name, cards)
     print("")
 
     winners = determine_winners(board, remaining_cards, evaluation_table)
     pot = compute_pot(old_stack, stack)
-    winner_names = [players[remaining[i]].name_ for i in winners]
+    winner_names = [players[remaining[i]].name for i in winners]
     wins = [s - old_stack[i] for i, s in enumerate(stack)]
 
     for i, _ in enumerate(wins):
-        name = players[i].name_
+        name = players[i].name
         if name in winner_names:
             wins[i] += pot // len(winners)
             print(f"{name} won {wins[i]} blinds")
