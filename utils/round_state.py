@@ -23,6 +23,8 @@ def call_amount(state, player):
 
 
 def cheating(state, player, bet, stack):
+    if not bet:
+        return False
     max_investment = max(s[1] for s in state)
     return bet > stack or state[player][1] + bet < max_investment
 

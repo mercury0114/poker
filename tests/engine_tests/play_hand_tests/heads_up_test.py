@@ -25,14 +25,14 @@ class BetIfNotCallPlayer(Player):
 
 class Unit(TestCase):
     def test1(self):
-        players = [BetLess10Player(), BetIfNotCallPlayer()]
+        players = [BetLess10Player('p0'), BetIfNotCallPlayer('p1')]
         stack = full_stack_for_all(len(players))
         board, cards = deal_cards(len(players))
         remaining = play_hand_return_remaining(players, stack, board, cards)
         self.assertEqual(remaining, [1])
 
     def test2(self):
-        players = [BetIfNotCallPlayer(), BetLess10Player()]
+        players = [BetIfNotCallPlayer('p0'), BetLess10Player('p1')]
         stack = full_stack_for_all(len(players))
         board, cards = deal_cards(len(players))
         remaining = play_hand_return_remaining(players, stack, board, cards)
@@ -40,7 +40,9 @@ class Unit(TestCase):
 
     # Non heads up test
     def test3(self):
-        players = [BetIfNotCallPlayer(), BetLess10Player(), FoldPlayer()]
+        players = [BetIfNotCallPlayer('p0'),
+                   BetLess10Player('p1'),
+                   FoldPlayer('p2')]
         stack = full_stack_for_all(len(players))
         board, cards = deal_cards(len(players))
         remaining = play_hand_return_remaining(players, stack, board, cards)

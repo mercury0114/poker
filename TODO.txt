@@ -1,5 +1,6 @@
+-Handle all-ins with less money than calling amount
+-Update README.md
 -Refactor engine directory
 -Think how to rewrite cards_tests
--Update README.md
 -Fix odds_calculator function
 -Write tests for the evaluation function

@@ -17,16 +17,16 @@ def play_hand_return_wins(players):
 
     print("SHOWDOWN:")
     for i, cards in enumerate(remaining_cards):
-        display_cards(players[remaining[i]].get_name(), cards)
+        display_cards(players[remaining[i]].name, cards)
     print("")
 
     winners = determine_winners(board, remaining_cards, evaluation_table)
     pot = compute_pot(old_stack, stack)
-    winner_names = [players[remaining[i]].get_name() for i in winners]
+    winner_names = [players[remaining[i]].name for i in winners]
     wins = [s - old_stack[i] for i, s in enumerate(stack)]
 
     for i, _ in enumerate(wins):
-        name = players[i].get_name()
+        name = players[i].name
         if name in winner_names:
             wins[i] += pot // len(winners)
             print(f"{name} won {wins[i]} blinds")

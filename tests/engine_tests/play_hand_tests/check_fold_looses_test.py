@@ -13,14 +13,14 @@ from utils.stack import full_stack_for_all
 
 class Unit(TestCase):
     def test1(self):
-        players = [AllInPlayer(), FoldPlayer()]
+        players = [AllInPlayer('p0'), FoldPlayer('p1')]
         stack = full_stack_for_all(2)
         board, cards = deal_cards(len(players))
         remaining = play_hand_return_remaining(players, stack, board, cards)
         self.assertEqual(remaining, [0])
 
     def test2(self):
-        players = [FoldPlayer(), AllInPlayer()]
+        players = [FoldPlayer('p0'), AllInPlayer("p1")]
         stack = full_stack_for_all(2)
         board, cards = deal_cards(len(players))
         remaining = play_hand_return_remaining(players, stack, board, cards)

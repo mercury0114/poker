@@ -32,5 +32,5 @@ class WithPairPlayer(Player):
     def bet(self):
         amount = call_amount(self.state, self.position)
         if self.good_hand():
-            return amount * 2 + 5 if reraise() else amount
+            return min(self.stack, amount * 2 + 5) if reraise() else amount
         return amount if amount <= 10 else 0

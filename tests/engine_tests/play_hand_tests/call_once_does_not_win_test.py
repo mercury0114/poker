@@ -26,7 +26,7 @@ class Bet10Player(Player):
 
 class Unit(TestCase):
     def test1(self):
-        players = [CallLess10Player(), FoldPlayer(), Bet10Player()]
+        players = [CallLess10Player("p0"), FoldPlayer("p1"), Bet10Player("p2")]
         board, cards = deal_cards(len(players))
         stack = full_stack_for_all(len(players))
         remaining = play_hand_return_remaining(players, stack, board, cards)

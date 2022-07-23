@@ -10,11 +10,11 @@ from players.with_pair_player import WithPairPlayer
 #
 # If you want to customise your opponent, you have to write your own class
 # implementing the Player interface found in players/player.py
-you = Human()
-big_blind = WithPairPlayer()
-utg = WithPairPlayer()
-utg_plus1 = WithPairPlayer()
-utg_plus2 = WithPairPlayer()
-button = WithPairPlayer()
+you = Human("You")
+big_blind = WithPairPlayer("player1")
+utg = WithPairPlayer("player2")
+utg_plus1 = WithPairPlayer("player3")
+utg_plus2 = WithPairPlayer("player4")
+button = WithPairPlayer("player5")
 players = [you, big_blind, utg, utg_plus1, utg_plus2, button]
 play(players)

@@ -27,14 +27,18 @@ class BetMoreThanStackCheater(Player):
 
 class Unit(TestCase):
     def test1(self):
-        players = [CallPlayer(), FoldPlayer(), CallOneLessCheater()]
+        players = [CallPlayer('p0'),
+                   FoldPlayer('p1'),
+                   CallOneLessCheater('p2')]
         board, cards = deal_cards(len(players))
         stack = full_stack_for_all(len(players))
         remaining = play_hand_return_remaining(players, stack, board, cards)
         self.assertEqual(remaining, [0, 1])
 
     def test2(self):
-        players = [BetMoreThanStackCheater(), FoldPlayer(), CallPlayer()]
+        players = [BetMoreThanStackCheater('p0'),
+                   FoldPlayer('p1'),
+                   CallPlayer('p2')]
         board, cards = deal_cards(len(players))
         stack = full_stack_for_all(len(players))
         remaining = play_hand_return_remaining(players, stack, board, cards)

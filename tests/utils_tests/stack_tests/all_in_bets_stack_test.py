@@ -11,7 +11,7 @@ from players.donkeys import AllInPlayer
 
 class Test(TestCase):
     def test1(self):
-        players = [AllInPlayer(), AllInPlayer()]
+        players = [AllInPlayer('p0'), AllInPlayer('p1')]
         stack = [50, 50]
         board, cards = deal_cards(len(players))
         play_hand_return_remaining(players, stack, board, cards)

@@ -13,7 +13,9 @@ from utils.stack import FULL_STACK
 
 class Unit(TestCase):
     def test1(self):
-        player0, player1, player2 = FoldPlayer(), FoldPlayer(), FoldPlayer()
+        player0 = FoldPlayer('p0')
+        player1 = FoldPlayer('p1')
+        player2 = FoldPlayer('p2')
         players = [player0, player1, player2]
         stack = full_stack_for_all(len(players))
         board, cards = deal_cards(len(players))
@@ -22,7 +24,9 @@ class Unit(TestCase):
         self.assertEqual(player0.get_stack(), FULL_STACK - 1)
 
     def test2(self):
-        player0, player1, player2 = FoldPlayer(), FoldPlayer(), FoldPlayer()
+        player0 = FoldPlayer('p0')
+        player1 = FoldPlayer('p1')
+        player2 = FoldPlayer('p2')
         players = [player0, player1, player2]
         stack = [50, 50, 50]
         board, cards = deal_cards(len(players))

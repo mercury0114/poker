@@ -25,7 +25,7 @@ class CallIfFirstBoardCardAce(Player):
 
 class Unit(TestCase):
     def test1(self):
-        players = [CallIfFirstBoardCardAce(), Bet10Player()]
+        players = [CallIfFirstBoardCardAce('p0'), Bet10Player('p1')]
         board = ["Ah", "3s", "4s", "5s", "6s"]
         cards = [["As", "Ks"], ["Qs", "Js"]]
         stack = full_stack_for_all(len(players))
@@ -33,7 +33,7 @@ class Unit(TestCase):
         self.assertEqual(remaining, [0, 1])
 
     def test2(self):
-        players = [CallIfFirstBoardCardAce(), Bet10Player()]
+        players = [CallIfFirstBoardCardAce('p0'), Bet10Player('p1')]
         board = ["2s", "3s", "4s", "5s", "6s"]
         cards = [["2h", "Ks"], ["Qs", "Js"]]
         stack = full_stack_for_all(len(players))
