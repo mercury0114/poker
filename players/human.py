@@ -25,8 +25,8 @@ class Human(Player):
         self.display_statuses()
         print("")
 
-    def update_state(self, state):
-        super().update_state(state)
+    def update_board_state(self, board, state):
+        super().update_board_state(board, state)
         self.display_new_action()
 
     def set_cards(self, cards):

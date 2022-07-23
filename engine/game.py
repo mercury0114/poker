@@ -13,8 +13,7 @@ REVEAL_CARDS = [0, 3, 4, 5]
 
 def update_players(players, state, revealed_board):
     for player in players:
-        player.board = revealed_board
-        player.state = state
+        player.update_board_state(revealed_board, state)
 
 
 def play_hand_return_remaining(players, stack, board, players_cards):

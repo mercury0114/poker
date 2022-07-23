@@ -11,6 +11,10 @@ class Player:
     def get_players_count(self):
         return len(self.all_players_names)
 
+    def update_board_state(self, board, state):
+        self.board = board
+        self.state = state
+
     def set_all_players_names(self, all_players_names):
         self.all_players_names = all_players_names
         self.position = 0
