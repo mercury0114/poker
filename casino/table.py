@@ -32,12 +32,19 @@ class Table:
         self.players = players
         self.table = read_evaluation_table()
 
+    def display_hand_results(self, wins):
+        for i, win in enumerate(wins):
+            name = self.players[i].name
+            print(f"{name} hand balance: {win} blinds")
+        print("")
+
     def play(self):
         hands_count = 0
         balance = {player.name: 0 for player in self.players}
         hands_folded = {player.name: 0 for player in self.players}
         while play_next_hand():
             wins = play_hand_return_wins(self.players, self.table)
+            self.display_hand_results(wins)
             for i, win in enumerate(wins):
                 balance[self.players[i].name] += win
                 hands_folded[self.players[i].name] += folded_hand(i, win)

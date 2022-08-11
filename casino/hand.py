@@ -61,10 +61,11 @@ def play_hand_return_wins(players, evaluation_table):
     remaining = play_hand_return_remaining(players, stack, board, cards)
     remaining_cards = [cards[p] for p in remaining]
 
-    print("SHOWDOWN:")
-    for i, cards in enumerate(remaining_cards):
-        display_cards(players[remaining[i]].name, cards)
-    print("")
+    if len(remaining) > 1:
+        print("SHOWDOWN:")
+        for i, cards in enumerate(remaining_cards):
+            display_cards(players[remaining[i]].name, cards)
+        print("")
 
     winners = determine_winners(board, remaining_cards, evaluation_table)
     pot = compute_pot(old_stack, stack)
@@ -75,8 +76,4 @@ def play_hand_return_wins(players, evaluation_table):
         name = players[i].name
         if name in winner_names:
             wins[i] += pot // len(winners)
-            print(f"{name} won {wins[i]} blinds")
-        else:
-            print(f"{name} lost {-wins[i]} blinds")
-    print("")
     return wins
