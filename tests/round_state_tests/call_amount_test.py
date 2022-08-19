@@ -5,6 +5,7 @@ from unittest import main
 from unittest import TestCase
 
 from utils.round_state import call_amount
+from utils.round_state import ALL_IN
 from utils.round_state import CALL
 from utils.round_state import PENDING
 from utils.round_state import RAISE
@@ -31,6 +32,11 @@ class Unit(TestCase):
         self.assertEqual(call_amount(state, 2), 0)
         self.assertEqual(call_amount(state, 3), 10)
 
+    def test5(self):
+        state = [(PENDING, 2), (RAISE, 10), (ALL_IN, 8), (PENDING, 0)]
+        self.assertEqual(call_amount(state, 0), 8)
+        self.assertEqual(call_amount(state, 1), 0)
+        self.assertEqual(call_amount(state, 3), 10)
 
-if __name__ == "__main__":
-    main()
+
+main()

@@ -11,7 +11,7 @@ def card_string(card):
 
 def display_row(row_name, row):
     formatted_row = [entry.ljust(10) for entry in row]
-    print(f"{row_name}:".ljust(10) + ' '.join(formatted_row))
+    print(f"{row_name}:".ljust(15) + ' '.join(formatted_row))
 
 
 def display_cards(name, cards):

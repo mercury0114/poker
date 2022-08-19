@@ -12,5 +12,6 @@ assert cheating(round_state, 1, 3, 2)
 assert not cheating(round_state, 1, 3, 100)
 assert not cheating(round_state, 1, 3, 3)
 assert not cheating(round_state, 1, 0, 1)
+assert not cheating(round_state, 1, 2, 2)
 
 print("Passed")

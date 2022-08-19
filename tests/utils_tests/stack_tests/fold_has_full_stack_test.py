@@ -20,8 +20,8 @@ class Unit(TestCase):
         stack = full_stack_for_all(len(players))
         board, cards = deal_cards(len(players))
         play_hand_return_remaining(players, stack, board, cards)
-        self.assertEqual(player0.stack, FULL_STACK - 1)
-        self.assertEqual(player2.stack, FULL_STACK)
+        self.assertEqual(player0.get_stack(), FULL_STACK - 1)
+        self.assertEqual(player2.get_stack(), FULL_STACK)
 
     def test2(self):
         player0 = FoldPlayer('p0')
@@ -31,9 +31,9 @@ class Unit(TestCase):
         stack = [50, 50, 50]
         board, cards = deal_cards(len(players))
         play_hand_return_remaining(players, stack, board, cards)
-        self.assertEqual(player0.stack, 49)
-        self.assertEqual(player1.stack, 48)
-        self.assertEqual(player2.stack, 50)
+        self.assertEqual(player0.get_stack(), 49)
+        self.assertEqual(player1.get_stack(), 48)
+        self.assertEqual(player2.get_stack(), 50)
 
 
 if __name__ == '__main__':

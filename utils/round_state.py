@@ -1,13 +1,14 @@
 # An example round state:
-# [ (FOLD, 0), (CHECK, 0), (RAISE, 6), (CALL, 6), (FOLD, 0), (PENDING, 0) ]
+# [ (FOLD, 0), (CHECK, 0), (RAISE, 6), (CALL, 6), (ALL_IN, 0), (PENDING, 0) ]
 # means that:
 # Player 0 has folded (in the previous round)
 # Player 1 has checked
 # Player 2 has raised to 6
 # Player 3 has called a raise
-# Player 4 has folded (either in this round or before)
+# Player 4 has moved all in with his last 6 chips
 # Player 5 has still left to act
 
+ALL_IN = "ALL_IN"
 CALL = "CALL"
 CHECK = "CHECK"
 FOLD = "FOLD"
@@ -23,7 +24,7 @@ def call_amount(state, player):
 
 
 def cheating(state, player, bet, stack):
-    if not bet:
+    if not bet or bet == stack:
         return False
     max_investment = max(s[1] for s in state)
     return bet > stack or state[player][1] + bet < max_investment
@@ -42,7 +43,7 @@ def player_to_act(state):
     if round_ended(state):
         state = refresh(state)
     index = (state == refresh(state) and len(state) == 2)
-    generator = (i for i, v in enumerate(state) if v[0] not in (FOLD, PENDING))
+    generator = (i for i, v in enumerate(state) if v[0] not in (ALL_IN, FOLD, PENDING))
     index = next(generator, index)
     while state[index][0] != PENDING:
         index = (index + 1) % len(state)
@@ -60,12 +61,12 @@ def round_ended(state):
 def refresh(state):
     refreshed = state.copy()
     for i, s in enumerate(refreshed):
-        status = FOLD if s[0] == FOLD else PENDING
+        status = s[0] if s[0] in [ALL_IN, FOLD] else PENDING
         refreshed[i] = (status, 0)
     return refreshed
 
 
-def update_round_state(state, player, bet):
+def update_round_state(state, player, bet, stack=1000000):
     max_investment = max(s[1] for s in state)
     player_investment = state[player][1] + bet
     if player_investment < max_investment:
@@ -76,6 +77,8 @@ def update_round_state(state, player, bet):
         state[player] = (CALL, player_investment)
     if player_investment > max_investment:
         for i, s in enumerate(state):
-            if s[0] != FOLD:
+            if s[0] not in (ALL_IN, FOLD):
                 state[i] = (PENDING, s[1])
         state[player] = (RAISE, player_investment)
+    if bet == stack:
+        state[player] = (ALL_IN, player_investment)

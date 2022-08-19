@@ -8,6 +8,7 @@ from cards.evaluator import read_evaluation_table
 from casino.hand import play_hand_return_wins
 from players.donkeys import AllInPlayer
 from players.donkeys import FoldPlayer
+from utils.stack import full_stack_for_all
 
 
 class Unit(TestCase):
@@ -16,7 +17,8 @@ class Unit(TestCase):
         all_in_player = AllInPlayer('p0')
         fold_player = FoldPlayer('p1')
         players = [all_in_player, fold_player]
-        wins = play_hand_return_wins(players, evaluation_table)
+        stacks = full_stack_for_all(len(players))
+        wins = play_hand_return_wins(players, stacks, evaluation_table)
         self.assertEqual(wins, [2, -2])
 
     def test2(self):
@@ -24,7 +26,8 @@ class Unit(TestCase):
         all_in_player = AllInPlayer('p0')
         fold_player = FoldPlayer('p1')
         players = [fold_player, all_in_player]
-        wins = play_hand_return_wins(players, evaluation_table)
+        stacks = full_stack_for_all(len(players))
+        wins = play_hand_return_wins(players, stacks, evaluation_table)
         self.assertEqual(wins, [-1, 1])
 
 

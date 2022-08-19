@@ -4,6 +4,7 @@ path[0] = "../../"
 from unittest import main
 from unittest import TestCase
 
+from utils.round_state import ALL_IN
 from utils.round_state import CALL
 from utils.round_state import CHECK
 from utils.round_state import FOLD
@@ -68,6 +69,13 @@ class Unit(TestCase):
         update_round_state(round_state, 2, 0)
         self.assertEqual(player_to_act(round_state), 2)
 
+    def test8(self):
+        round_state = [(RAISE, 10), (ALL_IN, 5), (CALL, 10), (PENDING, 0)]
+        self.assertEqual(player_to_act(round_state), 3)
+        update_round_state(round_state, 3, 15)
+        self.assertEqual(player_to_act(round_state), 0)
+        update_round_state(round_state, 0, 0)
+        self.assertEqual(player_to_act(round_state), 2)
 
-if __name__ == "__main__":
-    main()
+
+main()

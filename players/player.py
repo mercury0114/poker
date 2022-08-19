@@ -1,7 +1,7 @@
 class Player:
     def __init__(self, name):
         self.name = name
-        self.stack = None
+        self.stacks = None
         self.state = None
         self.board = None
         self.all_players_names = None
@@ -11,9 +11,10 @@ class Player:
     def get_players_count(self):
         return len(self.all_players_names)
 
-    def update_board_state(self, board, state):
+    def update_board_state(self, board, state, stacks):
         self.board = board
         self.state = state
+        self.stacks = stacks
 
     def set_cards(self, cards):
         self.cards = cards
@@ -23,3 +24,6 @@ class Player:
         self.position = 0
         while all_players_names[self.position] != self.name:
             self.position += 1
+
+    def get_stack(self):
+        return self.stacks[self.position]

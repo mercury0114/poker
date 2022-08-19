@@ -1,7 +1,9 @@
 from cards.evaluator import read_evaluation_table
 from casino.hand import play_hand_return_wins
+from utils.stack import FULL_STACK
 
 SMALL_BLIND_POSITION = 0
+BIG_BLIND_POSITION = 1
 
 
 def play_next_hand():
@@ -12,7 +14,8 @@ def play_next_hand():
 def folded_hand(position, win):
     if position == SMALL_BLIND_POSITION:
         return win == -1
-    # TODO(mercury0114): handle big blind position correctly
+    if position == BIG_BLIND_POSITION:
+        return win == -2
     return win == 0
 
 
@@ -29,6 +32,7 @@ def print_statistics(hands_count, hands_folded, balance):
 class Table:
     def __init__(self, players):
         self.rotate_positions = True
+        self.stacks = [FULL_STACK] * len(players)
         self.players = players
         self.table = read_evaluation_table()
 
@@ -43,7 +47,7 @@ class Table:
         balance = {player.name: 0 for player in self.players}
         hands_folded = {player.name: 0 for player in self.players}
         while play_next_hand():
-            wins = play_hand_return_wins(self.players, self.table)
+            wins = play_hand_return_wins(self.players, self.stacks, self.table)
             self.display_hand_results(wins)
             for i, win in enumerate(wins):
                 balance[self.players[i].name] += win
@@ -51,4 +55,5 @@ class Table:
             hands_count += 1
             if self.rotate_positions:
                 self.players = self.players[1:] + self.players[:1]
+                self.stacks = self.stacks[1:] + self.stacks[:1]
         print_statistics(hands_count, hands_folded, balance)

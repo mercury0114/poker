@@ -1,4 +1,7 @@
--Handle all-ins with less money than calling amount
+- Fix flaky someone_wins_not_default_stack_test.py
+-Make split_pot not modify arguments
+-Hide showdown message
+-Move pot related stuff from utils.stack to utils.pot
 -Think how to rewrite cards_tests
 -Fix odds_calculator function
 -Write tests for the evaluation function

@@ -34,5 +34,4 @@ class Unit(TestCase):
         self.assertEqual(remaining, [0])
 
 
-if __name__ == '__main__':
-    main()
+main()

@@ -14,4 +14,4 @@ class FoldPlayer(Player):
 
 class AllInPlayer(Player):
     def bet(self):
-        return self.stack
+        return self.stacks[self.position]

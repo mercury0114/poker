@@ -4,7 +4,7 @@ from itertools import combinations
 
 from cards.notation import RANKS
 
-COMBOS = ["High card", "Pair", "Two pairs", "Three of a kind", "Straight",
+COMBOS = ["High card", "Pair", "Two p*airs", "Three of a kind", "Straight",
           "Flush", "Full house", "Four of a kind", "Straight flush"]
 WHEEL = [3, 2, 1, 0, 12]
 FLUSH_SCORE = 5863
@@ -54,7 +54,7 @@ def evaluate(cards):
         return (5, ranks)
     if straight:
         return (4, ranks)
-    return (3 in counts) + pairs, ranks
+    return (3 in counts) * 3 + pairs, tuple(ranks)
 
 
 def determine_winners(board_cards, players_cards, evaluation_table):
@@ -68,10 +68,22 @@ def determine_winners(board_cards, players_cards, evaluation_table):
     return [i for i, hand in enumerate(best_hands) if hand == winning]
 
 
-def best_hand_evaluation(board_cards, player_cards):
+def rank_players(board, cards, table):
+    evaluations = [best_evaluation_with_table(board, c, table) for c in cards]
+    return [sorted(evaluations, reverse=True).index(e) for e in evaluations]
+
+
+def best_evaluation(board_cards, player_cards):
     number = len(board_cards) + len(player_cards)
     all_hands = combinations(board_cards + player_cards, min(number, 5))
     evaluations = [evaluate(hand) for hand in all_hands]
+    return max(evaluations)
+
+
+# board + player must contain >= 5 cards
+def best_evaluation_with_table(board, player, table):
+    all_hands = combinations(board + player, 5)
+    evaluations = (evaluate_with_table(hand, table) for hand in all_hands)
     return max(evaluations)
 
 
