@@ -30,15 +30,15 @@ class Unit(TestCase):
         assert wins[1] in [50, -50, 0], f"wrong wins[1]:{wins[1]}"
         self.assertEqual(wins[2], 0)
 
-    @staticmethod
-    def test3():
+    def test3(self):
         players = [AllInPlayer('p0'), AllInPlayer('p1'), AllInPlayer('p2')]
         stacks = [10, 40, 160]
         evaluation_table = read_evaluation_table()
         wins = play_hand_return_wins(players, stacks, evaluation_table)
-        assert wins[0] in [20, 10, 0, -10], f"wrong wins[0]:{wins[0]}"
-        assert wins[1] in [50, 35, 5, 0, -40], f"wrong wins[1]:{wins[1]}"
-        assert wins[2] in [50, 35, 5, 0, -40], f"wrong wins[2]:{wins[2]}"
+        assert wins[0] in [20, 5, 0, -10], f"wrong wins[0]:{wins[0]}"
+        assert wins[1] in [50, 35, 20, 5, 0, -40], f"wrong wins[1]:{wins[1]}"
+        assert wins[2] in [50, 35, 20, 5, 0, -40], f"wrong wins[2]:{wins[2]}"
+        self.assertEqual(wins[0] + wins[1] + wins[2], 0)
 
 
 main()

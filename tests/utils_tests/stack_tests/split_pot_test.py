@@ -57,5 +57,12 @@ class Unit(TestCase):
         pot_split = split_pot(old_stack, stack, ranks)
         self.assertEqual(pot_split, [202, 0])
 
+    def test8(self):
+        old_stack = [10, 40, 160]
+        stack = [0, 0, 0]
+        ranks = [0, 0, 2]
+        pot_split = split_pot(old_stack, stack, ranks)
+        self.assertEqual(pot_split, [15, 75, 120])
+
 
 main()
