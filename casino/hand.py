@@ -45,6 +45,7 @@ def play_hand_return_remaining(players, stacks, board, players_cards):
         stacks[next_player] -= bet
         left = players_left(state)
         if len(left) == 1 or all(state[p][0] == ALL_IN for p in left):
+            update_players(players, state, revealed, stacks)
             return left
         if round_ended(state):
             update_players(players, state, revealed, stacks)
