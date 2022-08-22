@@ -2,14 +2,13 @@ from cards.dealer import deal_cards
 from cards.displayer import display_cards
 from cards.evaluator import rank_players
 from utils.round_state import ALL_IN
+from utils.round_state import PENDING
 from utils.round_state import cheating
-from utils.round_state import initial_state
 from utils.round_state import update_round_state
 from utils.round_state import players_left
 from utils.round_state import round_ended
 from utils.round_state import player_to_act
 from utils.round_state import refresh
-from utils.stack import valid_stack
 from utils.stack import split_pot
 
 BOARD = "Board"
@@ -22,10 +21,13 @@ def update_players(players, state, revealed_board, stacks):
 
 
 def play_hand_return_remaining(players, stacks, board, players_cards):
-    assert valid_stack(stacks), f"{stacks} are not valid"
-    state = initial_state(len(players))
+    state = [(PENDING, 0)] * len(players)
+    update_round_state(state, 0, 1, stacks[0])
+    update_round_state(state, 1, min(2, stacks[1]), stacks[1])
     for i, s in enumerate(state):
         stacks[i] -= s[1]
+        if state[i][0] != ALL_IN:
+            state[i] = (PENDING, state[i][1])
 
     next_player = 2 % len(players)
     round_number = 0

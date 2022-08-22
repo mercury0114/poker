@@ -30,7 +30,7 @@ class WithPairPlayer(Player):
         return hand_evaluation > board_evaluation or hand_evaluation > 3
 
     def bet(self):
-        amount = call_amount(self.state, self.position)
+        amount = min(self.get_stack(), call_amount(self.state, self.position))
         if self.good_hand():
             raise_amount = min(self.get_stack(), amount * 2 + 5)
             return raise_amount if reraise() else amount

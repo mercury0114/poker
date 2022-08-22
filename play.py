@@ -19,9 +19,9 @@ players = [you, big_blind, utg, utg_plus1, utg_plus2, button]
 
 table = Table(players)
 # Optionally specifying how much blinds each player brings to the table,
-# default is FULL_STACK = 200. Current implementation is such that initial
-# stack sizes reset for each new hand.
-table.stacks = [100, FULL_STACK, 50, FULL_STACK, 150, FULL_STACK]
+# default is FULL_STACK = 200. If you want to reset stacks after each hand:
+# table.change_stacks = False
+table.stacks = [FULL_STACK, 300, 50, FULL_STACK, 150, FULL_STACK]
 # if you want to always play in the same position:
 # table.rotate_positions = False
 table.play()

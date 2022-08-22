@@ -73,5 +73,4 @@ class Unit(TestCase):
         self.assertEqual(state, expected)
 
 
-if __name__ == "__main__":
-    main()
+main()

@@ -33,3 +33,8 @@ class Human(Player):
     def set_cards(self, cards):
         super().set_cards(cards)
         display_cards("Your cards", cards)
+
+    @staticmethod
+    def leave_table():
+        print("YOU LOST")
+        exit()

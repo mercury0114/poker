@@ -27,3 +27,7 @@ class Player:
 
     def get_stack(self):
         return self.stacks[self.position]
+
+    @staticmethod
+    def leave_table():
+        return

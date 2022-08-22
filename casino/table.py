@@ -31,6 +31,7 @@ def print_statistics(hands_count, hands_folded, balance):
 
 class Table:
     def __init__(self, players):
+        self.change_stacks = True
         self.rotate_positions = True
         self.stacks = [FULL_STACK] * len(players)
         self.players = players
@@ -53,6 +54,13 @@ class Table:
                 balance[self.players[i].name] += win
                 hands_folded[self.players[i].name] += folded_hand(i, win)
             hands_count += 1
+            if self.change_stacks:
+                self.stacks = [self.stacks[i] + wins[i] for i, _ in enumerate(wins)]
+                for player, stack in zip(self.players, self.stacks):
+                    if not stack:
+                        player.leave_table()
+                self.players = [self.players[i] for i, _ in enumerate(wins) if self.stacks[i]]
+                self.stacks = [stack for stack in self.stacks if stack]
             if self.rotate_positions:
                 self.players = self.players[1:] + self.players[:1]
                 self.stacks = self.stacks[1:] + self.stacks[:1]
