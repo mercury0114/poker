@@ -65,6 +65,7 @@ def play_hand_return_wins(players, old_stacks, evaluation_table):
 
     if len(remaining) > 1:
         print("SHOWDOWN:")
+        display_cards("Board", board)
         for i, c in enumerate(remaining_cards):
             display_cards(players[remaining[i]].name, c)
         print("")

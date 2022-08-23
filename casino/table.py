@@ -19,14 +19,11 @@ def folded_hand(position, win):
     return win == 0
 
 
-def print_statistics(hands_count, hands_folded, balance):
-    if not hands_count:
-        return
+def print_statistics(hands_count, hands_folded, hands_played, balance):
     print(f"{hands_count} hands")
+    print(f"hands played: {hands_played}")
     print(f"hands folded: {hands_folded}")
-    print(f"total balance:   {balance}")
-    average = {name: balance[name] // hands_count for name in balance}
-    print(f"average balance: {average}")
+    print(f"total balance: {balance}")
 
 
 class Table:
@@ -39,20 +36,21 @@ class Table:
 
     def display_hand_results(self, wins):
         for i, win in enumerate(wins):
-            name = self.players[i].name
-            print(f"{name} hand balance: {win} blinds")
+            print(f"{self.players[i].name} hand balance: {win} blinds")
         print("")
 
     def play(self):
         hands_count = 0
         balance = {player.name: 0 for player in self.players}
         hands_folded = {player.name: 0 for player in self.players}
+        hands_played = {player.name: 0 for player in self.players}
         while play_next_hand():
             wins = play_hand_return_wins(self.players, self.stacks, self.table)
             self.display_hand_results(wins)
             for i, win in enumerate(wins):
                 balance[self.players[i].name] += win
                 hands_folded[self.players[i].name] += folded_hand(i, win)
+                hands_played[self.players[i].name] += not folded_hand(i, win)
             hands_count += 1
             if self.change_stacks:
                 self.stacks = [self.stacks[i] + wins[i] for i, _ in enumerate(wins)]
@@ -64,4 +62,4 @@ class Table:
             if self.rotate_positions:
                 self.players = self.players[1:] + self.players[:1]
                 self.stacks = self.stacks[1:] + self.stacks[:1]
-        print_statistics(hands_count, hands_folded, balance)
+        print_statistics(hands_count, hands_folded, hands_played, balance)
