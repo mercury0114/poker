@@ -8,7 +8,7 @@ from utils.simulator import SIMULATION_COUNT
 if len(argv) != 2:
     print("usage:")
     print("python3 analyzer.py [cards_file.txt]")
-    exit()
+    exit(1)
 
 board_cards, names, players = read_cards(argv[1])
 evaluation_table = read_evaluation_table()

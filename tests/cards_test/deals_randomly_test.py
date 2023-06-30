@@ -1,6 +1,3 @@
-from sys import path
-path[0] = "../../"
-
 from cards.dealer import deal_cards
 
 for _ in range(100):

@@ -1,6 +1,3 @@
-from sys import path
-path[0] = "../../"
-
 from utils.round_state import PENDING
 from utils.round_state import initial_state
 

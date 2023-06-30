@@ -1,6 +1,3 @@
-from sys import path
-path[0] = "../../"
-
 from cards.dealer import deal_flop_and_turn
 from cards.reader import check_cards_are_valid
 
