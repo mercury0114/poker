@@ -43,7 +43,8 @@ def player_to_act(state):
     if round_ended(state):
         state = refresh(state)
     index = (state == refresh(state) and len(state) == 2)
-    generator = (i for i, v in enumerate(state) if v[0] not in (ALL_IN, FOLD, PENDING))
+    generator = (i for i, v in enumerate(state)
+                 if v[0] not in (ALL_IN, FOLD, PENDING))
     index = next(generator, index)
     while state[index][0] != PENDING:
         index = (index + 1) % len(state)

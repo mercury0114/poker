@@ -53,11 +53,13 @@ class Table:
                 hands_played[self.players[i].name] += not folded_hand(i, win)
             hands_count += 1
             if self.change_stacks:
-                self.stacks = [self.stacks[i] + wins[i] for i, _ in enumerate(wins)]
+                self.stacks = [self.stacks[i] + wins[i]
+                               for i, _ in enumerate(wins)]
                 for player, stack in zip(self.players, self.stacks):
                     if not stack:
                         player.leave_table()
-                self.players = [self.players[i] for i, _ in enumerate(wins) if self.stacks[i]]
+                self.players = [self.players[i]
+                                for i, _ in enumerate(wins) if self.stacks[i]]
                 self.stacks = [stack for stack in self.stacks if stack]
             if self.rotate_positions:
                 self.players = self.players[1:] + self.players[:1]

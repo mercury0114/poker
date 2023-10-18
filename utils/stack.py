@@ -15,8 +15,10 @@ def split_pot(old_stack, stack, ranks):
         if not sum(old_stack[i] - stack[i] for i in range(len(stack)) if ranks[i] == rank):
             rank += 1
             continue
-        min_investment = min(old - new for old, new in zip(old_stack, stack) if old - new != 0)
-        pot = sum(min(old - new, min_investment) for old, new in zip(old_stack, stack))
+        min_investment = min(
+            old - new for old, new in zip(old_stack, stack) if old - new != 0)
+        pot = sum(min(old - new, min_investment)
+                  for old, new in zip(old_stack, stack))
         for i, _ in enumerate(stack):
             bonus = min(min_investment, old_stack[i] - stack[i])
             stack[i] += bonus
