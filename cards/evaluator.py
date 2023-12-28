@@ -4,7 +4,7 @@ from itertools import combinations
 
 from cards.notation import RANKS
 
-COMBOS = ["High card", "Pair", "Two p*airs", "Three of a kind", "Straight",
+COMBOS = ["High card", "Pair", "Two pairs", "Three of a kind", "Straight",
           "Flush", "Full house", "Four of a kind", "Straight flush"]
 WHEEL = [3, 2, 1, 0, 12]
 FLUSH_SCORE = 5863
@@ -45,15 +45,15 @@ def evaluate(cards):
     counts = dict(Counter(ranks)).values()
     pairs = list(counts).count(2)
     if straight and flush:
-        return (8, ranks)
+        return (COMBOS.index("Straight flush"), ranks)
     if 4 in counts:
-        return (7, ranks)
+        return (COMBOS.index("Four of a kind"), ranks)
     if 3 in counts and pairs == 1:
-        return (6, ranks)
+        return (COMBOS.index("Full house"), ranks)
     if flush:
-        return (5, ranks)
+        return (COMBOS.index("Flush"), ranks)
     if straight:
-        return (4, ranks)
+        return (COMBOS.index("Straight"), ranks)
     return (3 in counts) * 3 + pairs, tuple(ranks)
 
 
