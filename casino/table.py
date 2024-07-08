@@ -44,7 +44,7 @@ class Table:
         balance = {player.name: 0 for player in self.players}
         hands_folded = {player.name: 0 for player in self.players}
         hands_played = {player.name: 0 for player in self.players}
-        while play_next_hand():
+        while len(self.players) > 1 and play_next_hand():
             wins = play_hand_return_wins(self.players, self.stacks, self.table)
             self.display_hand_results(wins)
             for i, win in enumerate(wins):
