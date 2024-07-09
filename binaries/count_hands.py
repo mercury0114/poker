@@ -29,7 +29,7 @@ while _next_round():
     better_hands = _find_better_hands(
         evaluation_table, board, your_cards=players[0])
     while len(better_hands) > 50:  # search until we find an interesting hand
-        board, players = deal_cards(number=1)
+        board, players = deal_cards(players_number=1)
         better_hands = _find_better_hands(
             evaluation_table, board, your_cards=players[0])
 
